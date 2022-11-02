@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 
 public class CursorController : MonoBehaviour
 {
     public static CursorController Instance;
     private RectTransform _transform;
-    [SerializeField] private PlayerInput input;
 
     private void Awake()
     {
@@ -24,7 +24,7 @@ public class CursorController : MonoBehaviour
 
     void Update()
     {
-        print(input.currentActionMap);
+        
     }
 
     public void HandleCursorInput(InputAction.CallbackContext context)
@@ -34,11 +34,8 @@ public class CursorController : MonoBehaviour
             Vector2 delta = context.ReadValue<Vector2>();
             delta *= 0.01f;
             
-            
             float x = Mathf.Clamp(_transform.anchoredPosition.x + delta.x, 0, 40);
-            float y = Mathf.Clamp(_transform.anchoredPosition.y + delta.y, -30, 0);
-
-            print($"delta.x: {delta.x} delta.y: {delta.y}\npos.x+delta.x: {_transform.anchoredPosition.x + delta.x} pos.y+delta.y:{_transform.anchoredPosition.x + delta.x}\nx: {x} y: {y}");
+            float y = Mathf.Clamp(_transform.anchoredPosition.y + delta.y, 0, 30);
             
             _transform.anchoredPosition = new Vector3(x, y);
         }
@@ -49,6 +46,19 @@ public class CursorController : MonoBehaviour
         if (context.started)
         {
             print("click");
+            foreach (ComputerButton button in transform.parent.GetComponentsInChildren<ComputerButton>())
+            {
+                RectTransform buttonRectTransform = button.GetComponent<RectTransform>();
+                if (_transform.anchoredPosition.x < buttonRectTransform.anchoredPosition.x - (buttonRectTransform.rect.width/2) ||
+                    _transform.anchoredPosition.x > buttonRectTransform.anchoredPosition.x + (buttonRectTransform.rect.width/2) ||
+                    _transform.anchoredPosition.y < buttonRectTransform.anchoredPosition.y - (buttonRectTransform.rect.height/2) ||
+                    _transform.anchoredPosition.y > buttonRectTransform.anchoredPosition.y + (buttonRectTransform.rect.height/2))
+                {
+                    break;
+                }
+                
+                button.OnPress.Invoke();
+            }
         }
     }
 
