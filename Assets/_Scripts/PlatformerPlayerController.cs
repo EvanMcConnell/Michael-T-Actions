@@ -6,22 +6,34 @@ public class PlatformerPlayerController : MonoBehaviour
 {
     CharacterController characterController;
 
-    [Header("Speed")]
+    [Header("Speed amd Movement")]
     [SerializeField] private float defaultSpeed = 2f;
     [SerializeField] private float SprintMultiplier = 1.8f;
-    [SerializeField] public float gravity = -9.81f;
     private float currentSpeed;
 
-    [SerializeField] private float jumpForce = 25f;
+    [Header("Gravity")]
+    [SerializeField] public float gravity = -9.81f;
+    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private Transform groundCheckPivot;
+    [SerializeField] private LayerMask groundMask;
+
+    //Ground Check 
+    private float groundDistance = 0.4f;
+
+    [Header("")]
     [SerializeField] private float cameraLeftRightSpeed = 5f;
 
-
+    //Axis Input
     private float xAxis;
     private float yAxis;
     private float yRot;
 
+    //Checks 
     private bool isSprinting = false;
+    private bool isGrounded = false;
+    private bool isJumping = false;
 
+    // Vector 3
     Vector3 movementVector;
     Vector3 velocityVector;
     void Start()
@@ -31,18 +43,31 @@ public class PlatformerPlayerController : MonoBehaviour
 
     }
 
-    float speedUpTime = 0;
     void FixedUpdate()
     {
-        Debug.Log(currentSpeed);
+        isGrounded = Physics.CheckSphere(groundCheckPivot.position, groundDistance, groundMask);
+        Debug.Log(isGrounded);
+        Debug.Log(velocityVector.y);
+
+        velocityVector.y += gravity * Time.deltaTime;
+
+        if (isGrounded && velocityVector.y < 0)
+        {
+            velocityVector.y = 0;
+        }
+
+        if (isGrounded && isJumping)
+        {
+            Debug.Log("jumpes");
+            velocityVector.y = Mathf.Sqrt(jumpHeight * -1 *  gravity);
+        }
 
         if (xAxis != 0 || yAxis !=0)
         {
             movementVector = transform.right * xAxis + transform.forward * yAxis;
         }
 
-
-        characterController.Move(movementVector * currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime);
+        characterController.Move(velocityVector + ( movementVector * currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
         transform.Rotate(new Vector3(0, yRot * Time.deltaTime, 0) * cameraLeftRightSpeed);
     }
 
@@ -108,11 +133,9 @@ public class PlatformerPlayerController : MonoBehaviour
 
     public void HandleJumpInput(InputAction.CallbackContext context)
     {
-        if (context.started)
-        {
-            Debug.Log("context");
-         //   m_Rigidbody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
-        }
+        if (context.started) isJumping = true;
+
+        if (context.canceled) isJumping = false;
     }
 
     public void HandleSprint(InputAction.CallbackContext context)
