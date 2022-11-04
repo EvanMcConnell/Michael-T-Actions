@@ -932,7 +932,7 @@ MonoBehaviour:
   defaultSpeed: 18
   SprintMultiplier: 1.8
   gravity: -1
-  jumpStrength: 0.3
+  jumpStrength: 0.6
   groundCheckPivot: {fileID: 773297404}
   groundMask:
     serializedVersion: 2
