@@ -68,8 +68,8 @@ public class PlatformerPlayerController : MonoBehaviour
         }
 
         characterController.Move(velocityVector + ( movementVector * currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
-        transform.Rotate(new Vector3(0, yRot * Time.deltaTime, 0) * cameraLeftRightSpeed);
-        yRot = 0;
+        
+        transform.localRotation = Quaternion.Euler(0,yRot * Time.deltaTime, 0f);
     }
 
     IEnumerator ChangeCurrentSpeedSmoothly(float start, float end, float steps, float timeStep)

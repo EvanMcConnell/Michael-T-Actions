@@ -16,9 +16,8 @@ public class PlatfromerCameraController : MonoBehaviour
     void FixedUpdate()
     {
         // Camera Up and Down
-        transform.Rotate(new Vector3(-xRot * Time.deltaTime, 0, 0) * cameraUpDownSpeed);
+        transform.localRotation = Quaternion.Euler(xRot*Time.deltaTime, 0f, 0f);
 
-        xRot = 0;
         //TODO:
         //add limits axis to rot;
         //add zoom in and out with scroll;
