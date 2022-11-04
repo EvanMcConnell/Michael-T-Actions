@@ -5,15 +5,19 @@ using UnityEngine.InputSystem;
 public class PlatformerPlayerController : MonoBehaviour
 {
     CharacterController characterController;
+    [SerializeField] Transform camTransform;
+
 
     [Header("Speed amd Movement")]
     [SerializeField] private float defaultSpeed = 2f;
     [SerializeField] private float SprintMultiplier = 1.8f;
+
     private float currentSpeed;
 
     [Header("Gravity")]
     [SerializeField] public float gravity = -9.81f;
-    [SerializeField] private float jumpHeight = 3f;
+    [SerializeField] private float jumpStrength = .3f;
+    bool airJumpDid = false;
     [SerializeField] private Transform groundCheckPivot;
     [SerializeField] private LayerMask groundMask;
 
@@ -31,13 +35,20 @@ public class PlatformerPlayerController : MonoBehaviour
     //Checks 
     private bool isSprinting = false;
     private bool isGrounded = false;
+
     private bool isJumping = false;
+    private bool isAirJump = false;
+
 
     // Vector 3
     Vector3 movementVector;
     Vector3 velocityVector;
+    Vector3 inputVector;
+    Transform cameraNormal;
+
     void Start()
     {
+        cameraNormal = transform;
         characterController = GetComponent<CharacterController>();
         yRot = 0;
 
@@ -56,20 +67,32 @@ public class PlatformerPlayerController : MonoBehaviour
             velocityVector.y = 0;
         }
 
-        if (isGrounded && isJumping)
+        if (isJumping)
         {
-            Debug.Log("jumpes");
-            velocityVector.y = Mathf.Sqrt(jumpHeight * -1 *  gravity);
+            velocityVector.y = jumpStrength;
+            isJumping = false;
         }
+
+        if (isAirJump)
+        {
+            velocityVector.y = jumpStrength;
+            movementVector = inputVector;
+            isAirJump = false;
+        }
+
+        cameraNormal.localEulerAngles = new Vector3(0, 
+            camTransform.localEulerAngles.y, camTransform.localEulerAngles.z);
+        Debug.Log(cameraNormal.forward);
+
+        inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis; ;
 
         if ((xAxis != 0 || yAxis !=0) && isGrounded)
         {
-            movementVector = transform.right * xAxis + transform.forward * yAxis;
+            movementVector = inputVector;
         }
-
-        characterController.Move(velocityVector + ( movementVector * currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
         
-        transform.localRotation = Quaternion.Euler(0,yRot * Time.deltaTime, 0f);
+        characterController.Move(velocityVector + (movementVector * currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
+        transform.LookAt(transform.position + inputVector.normalized);
     }
 
     IEnumerator ChangeCurrentSpeedSmoothly(float start, float end, float steps, float timeStep)
@@ -98,6 +121,8 @@ public class PlatformerPlayerController : MonoBehaviour
 
         currentSpeed = end;
     }
+
+
 
     private void WeWalkin(bool val)
     {
@@ -132,11 +157,30 @@ public class PlatformerPlayerController : MonoBehaviour
         yRot += inputMovement.x;
     }
 
+
+    private bool DidAirJump = false;
     public void HandleJumpInput(InputAction.CallbackContext context)
     {
-        if (context.started) isJumping = true;
+        if (context.performed)
+        {
+            if (isGrounded)
+            {
+                DidAirJump = false;
+                isJumping = true;
+            }
+            else if (!DidAirJump)
+            {
+                isAirJump = true;
+                DidAirJump = true;
+            }
 
-        if (context.canceled) isJumping = false;
+        }
+
+        if (context.canceled)
+        {
+            isJumping = false;
+            isAirJump = false;
+        }
     }
 
     public void HandleSprint(InputAction.CallbackContext context)
