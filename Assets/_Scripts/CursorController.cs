@@ -32,10 +32,10 @@ public class CursorController : MonoBehaviour
         if (context.started)
         {
             Vector2 delta = context.ReadValue<Vector2>();
-            delta *= 0.01f;
+            //delta *= 0.01f;
             
-            float x = Mathf.Clamp(_transform.anchoredPosition.x + delta.x, 0, 40);
-            float y = Mathf.Clamp(_transform.anchoredPosition.y + delta.y, 0, 30);
+            float x = Mathf.Clamp(_transform.anchoredPosition.x + delta.x, 0, 640);
+            float y = Mathf.Clamp(_transform.anchoredPosition.y + delta.y, 0, 480);
             
             _transform.anchoredPosition = new Vector3(x, y);
         }
@@ -45,25 +45,58 @@ public class CursorController : MonoBehaviour
     {
         if (context.started)
         {
-            print("click");
+            // print("click");
             foreach (ComputerButton button in transform.parent.GetComponentsInChildren<ComputerButton>())
             {
                 RectTransform buttonRectTransform = button.GetComponent<RectTransform>();
-                if (_transform.anchoredPosition.x < buttonRectTransform.anchoredPosition.x - (buttonRectTransform.rect.width/2) ||
-                    _transform.anchoredPosition.x > buttonRectTransform.anchoredPosition.x + (buttonRectTransform.rect.width/2) ||
-                    _transform.anchoredPosition.y < buttonRectTransform.anchoredPosition.y - (buttonRectTransform.rect.height/2) ||
-                    _transform.anchoredPosition.y > buttonRectTransform.anchoredPosition.y + (buttonRectTransform.rect.height/2))
+                Vector2 buttonPosition;
+                if (!button.isTaskbarTab)
                 {
-                    break;
+                    buttonPosition = new Vector2(buttonRectTransform.anchoredPosition.x,
+                        buttonRectTransform.anchoredPosition.y);
+                }
+                else
+                {
+                    RectTransform parentRectTransform = button.transform.parent.GetComponent<RectTransform>();
+                    RectTransform grandParentRectTransform = button.transform.parent.parent.GetComponent<RectTransform>();
+                    
+                    buttonPosition = new Vector2(parentRectTransform.anchoredPosition.x + grandParentRectTransform.anchoredPosition.x,
+                        parentRectTransform.anchoredPosition.y * -1 + grandParentRectTransform.anchoredPosition.y);
+                }
+
+                print($"{button.name} {buttonPosition} {button.transform.localPosition}");
+                if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2)){
+                    print("left: " + button.name);
+                    continue;
+                }
+                if (_transform.anchoredPosition.x > buttonPosition.x + (buttonRectTransform.rect.width/2)){
+                    print("right: " + button.name);
+                    continue;
                 }
                 
+                if (_transform.anchoredPosition.y < buttonPosition.y - (buttonRectTransform.rect.height/2))
+                {
+                    print("down: " + button.name);
+                    continue;
+                }
+                
+                if (_transform.anchoredPosition.y > buttonPosition.y + (buttonRectTransform.rect.height/2))
+                {
+                    print("up: " + button.name);
+                    continue;
+                }
+
+                if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2) ||
+                    _transform.anchoredPosition.x > buttonPosition.x + (buttonRectTransform.rect.width/2) ||
+                    _transform.anchoredPosition.y < buttonPosition.y - (buttonRectTransform.rect.height/2) ||
+                    _transform.anchoredPosition.y > buttonPosition.y + (buttonRectTransform.rect.height/2))
+                {
+                    continue;
+                }
+                
+                print("clicking: " + button.name);
                 button.OnPress.Invoke();
             }
         }
-    }
-
-    public void test()
-    {
-        print("test");
     }
 }
