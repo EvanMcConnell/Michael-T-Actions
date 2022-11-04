@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlatfromerCameraController : MonoBehaviour
 {
-    public float xRot;
+    private float xRot;
     private float yRot;
     private float cameraUpDownSpeed = 5f;
 

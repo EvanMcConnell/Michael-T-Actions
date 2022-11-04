@@ -82,16 +82,16 @@ public class PlatformerPlayerController : MonoBehaviour
 
         cameraNormal.localEulerAngles = new Vector3(0, 
             camTransform.localEulerAngles.y, camTransform.localEulerAngles.z);
-        Debug.Log(cameraNormal.forward);
 
-        inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis; ;
+        inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis; 
 
         if ((xAxis != 0 || yAxis !=0) && isGrounded)
         {
+            Debug.Log("We movin");
             movementVector = inputVector;
         }
         
-        characterController.Move(velocityVector + (movementVector * currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
+        characterController.Move(velocityVector + (movementVector *  currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
         transform.LookAt(transform.position + inputVector.normalized);
     }
 
@@ -126,6 +126,8 @@ public class PlatformerPlayerController : MonoBehaviour
 
     private void WeWalkin(bool val)
     {
+        
+        
         StopAllCoroutines();
 
         if (val)
