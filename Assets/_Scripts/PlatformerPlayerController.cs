@@ -62,7 +62,7 @@ public class PlatformerPlayerController : MonoBehaviour
             velocityVector.y = Mathf.Sqrt(jumpHeight * -1 *  gravity);
         }
 
-        if (xAxis != 0 || yAxis !=0)
+        if ((xAxis != 0 || yAxis !=0) && isGrounded)
         {
             movementVector = transform.right * xAxis + transform.forward * yAxis;
         }
