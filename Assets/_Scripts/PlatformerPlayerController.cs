@@ -46,8 +46,8 @@ public class PlatformerPlayerController : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = Physics.CheckSphere(groundCheckPivot.position, groundDistance, groundMask);
-        Debug.Log(isGrounded);
-        Debug.Log(velocityVector.y);
+//        Debug.Log(isGrounded);
+//        Debug.Log(velocityVector.y);
 
         velocityVector.y += gravity * Time.deltaTime;
 
@@ -69,6 +69,7 @@ public class PlatformerPlayerController : MonoBehaviour
 
         characterController.Move(velocityVector + ( movementVector * currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
         transform.Rotate(new Vector3(0, yRot * Time.deltaTime, 0) * cameraLeftRightSpeed);
+        yRot = 0;
     }
 
     IEnumerator ChangeCurrentSpeedSmoothly(float start, float end, float steps, float timeStep)
@@ -128,7 +129,7 @@ public class PlatformerPlayerController : MonoBehaviour
     public void HandleRotationInput(InputAction.CallbackContext context)
     {
         Vector2 inputMovement = context.ReadValue<Vector2>();
-        yRot = inputMovement.x;
+        yRot += inputMovement.x;
     }
 
     public void HandleJumpInput(InputAction.CallbackContext context)

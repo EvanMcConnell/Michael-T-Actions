@@ -16,8 +16,9 @@ public class PlatfromerCameraController : MonoBehaviour
     void FixedUpdate()
     {
         // Camera Up and Down
-        transform.Rotate(new Vector3(xRot * Time.deltaTime, 0, 0) * cameraUpDownSpeed);
+        transform.Rotate(new Vector3(-xRot * Time.deltaTime, 0, 0) * cameraUpDownSpeed);
 
+        xRot = 0;
         //TODO:
         //add limits axis to rot;
         //add zoom in and out with scroll;
@@ -26,7 +27,8 @@ public class PlatfromerCameraController : MonoBehaviour
     public void HandleRotationInput(InputAction.CallbackContext context)
     {
         Vector2 inputMovement = context.ReadValue<Vector2>();
-        xRot = inputMovement.y;
+        print($"input {inputMovement}");
+        xRot += inputMovement.y;
     }
 
     //TODO ZOOM
