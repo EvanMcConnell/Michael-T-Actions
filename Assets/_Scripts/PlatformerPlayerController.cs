@@ -6,6 +6,7 @@ public class PlatformerPlayerController : MonoBehaviour
 {
     CharacterController characterController;
     [SerializeField] Transform camTransform;
+    [SerializeField] Animator animator;
     Transform cameraNormal;
 
     [Header("Speed amd Movement")]
@@ -35,6 +36,7 @@ public class PlatformerPlayerController : MonoBehaviour
 
     private bool isJumping = false;
     private bool isAirJump = false;
+    private bool DidAirJump = false;
 
 
     // Vectors to effect movement
@@ -47,7 +49,8 @@ public class PlatformerPlayerController : MonoBehaviour
 
     void Start()
     {
-        cameraNormal = transform;
+        GameObject emptyGO = new GameObject();
+        cameraNormal = emptyGO.transform;
         characterController = GetComponent<CharacterController>();
     }
 
@@ -57,6 +60,29 @@ public class PlatformerPlayerController : MonoBehaviour
         GroundedCheck();
         GravityAndJumpCal();
         MovementCal();
+        AnimatorController();
+    }
+
+    void AnimatorController()
+    {
+        if (isGrounded && (xAxis != 0 || yAxis != 0))
+        {
+            animator.SetBool("Walk", true);
+            animator.SetBool("Jump", false);
+            animator.SetBool("Idle", false);
+        }
+        else if (isGrounded)
+        {
+            animator.SetBool("Jump", false);
+            animator.SetBool("Walk", false);
+            animator.SetBool("Idle", true);
+        }
+        else
+        {
+            animator.SetBool("Idle", false);
+            animator.SetBool("Walk", false);
+            animator.SetBool("Jump", true);
+        }
     }
 
     /// <summary>
@@ -98,6 +124,7 @@ public class PlatformerPlayerController : MonoBehaviour
             camTransform.localEulerAngles.y, camTransform.localEulerAngles.z);
 
         //Direction to move taking into account the player input and postion of the camera relative to the player
+
         inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis;
 
         // Ground Movement
@@ -111,9 +138,8 @@ public class PlatformerPlayerController : MonoBehaviour
         else
         {
             airMovementVector = inputVector / 8;
-            characterController.Move(velocityVector + (movementVector * actualSpeed * Time.deltaTime) + airMovementVector);
+           characterController.Move(velocityVector + (movementVector * actualSpeed * Time.deltaTime) + airMovementVector);
         }
-
 
         transform.LookAt(transform.position + inputVector.normalized);
     }
@@ -206,13 +232,8 @@ public class PlatformerPlayerController : MonoBehaviour
 
     }
 
-    public void HandleRotationInput(InputAction.CallbackContext context)
-    {
-        Vector2 inputMovement = context.ReadValue<Vector2>();
-    }
 
 
-    private bool DidAirJump = false;
     public void HandleJumpInput(InputAction.CallbackContext context)
     {
         if (context.performed)
