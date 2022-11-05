@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,4 +28,6 @@ public class FirstPersonMovementController : MonoBehaviour
     {
         movement = context.ReadValue<Vector2>();
     }
+
+    
 }

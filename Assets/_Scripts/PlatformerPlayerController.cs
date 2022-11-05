@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlatformerPlayerController : MonoBehaviour
 {
-    CharacterController characterController;
-    [SerializeField] Transform camTransform;
+    CharacterController characterController => PlayerSingleton.Instance.controller;
+    Transform camTransform => PlayerSingleton.Instance.CamTransform;
 
 
     [Header("Speed amd Movement")]
@@ -18,7 +18,7 @@ public class PlatformerPlayerController : MonoBehaviour
     [SerializeField] public float gravity = -9.81f;
     [SerializeField] private float jumpStrength = .3f;
     bool airJumpDid = false;
-    [SerializeField] private Transform groundCheckPivot;
+    private Transform groundCheckPivot => PlayerSingleton.Instance.GroundCheckPivot;
     [SerializeField] private LayerMask groundMask;
 
     //Ground Check 
@@ -44,12 +44,13 @@ public class PlatformerPlayerController : MonoBehaviour
     Vector3 movementVector;
     Vector3 velocityVector;
     Vector3 inputVector;
-    Transform cameraNormal;
+    private Transform playerTransform => PlayerSingleton.Instance.transform;
+    Transform cameraNormal => playerTransform;
 
     void Start()
     {
-        cameraNormal = transform;
-        characterController = GetComponent<CharacterController>();
+        //cameraNormal = playerTransform;
+        //characterController = GetComponent<CharacterController>();
         yRot = 0;
 
     }
@@ -92,7 +93,7 @@ public class PlatformerPlayerController : MonoBehaviour
         }
         
         characterController.Move(velocityVector + (movementVector *  currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
-        transform.LookAt(transform.position + inputVector.normalized);
+        playerTransform.LookAt(playerTransform.position + inputVector.normalized);
     }
 
     IEnumerator ChangeCurrentSpeedSmoothly(float start, float end, float steps, float timeStep)

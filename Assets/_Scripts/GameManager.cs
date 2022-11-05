@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Gamemanager finna gonna manage shit innit
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private PlatformerPlayerController playerController;
     private static GameManager _instance;
 
     public static GameManager Instance
@@ -77,6 +80,12 @@ public class GameManager : MonoBehaviour
     }
     public void SetRealMoney(float value) => _usefulIngameMoney = value;
 
+    public void LoadGame()
+    {
+        SceneManager.LoadScene("3DGameWorld", LoadSceneMode.Additive);
+        GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+        playerController.enabled = true;
+    }
 
     /// <summary>
     /// Yummy Doner Meat

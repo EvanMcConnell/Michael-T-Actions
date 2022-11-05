@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.VirtualTexturing;
 
 public class CursorController : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class CursorController : MonoBehaviour
     void Start()
     {
         _transform = GetComponent<RectTransform>();
-        print("started");
     }
 
     void Update()
@@ -64,27 +64,27 @@ public class CursorController : MonoBehaviour
                         parentRectTransform.anchoredPosition.y * -1 + grandParentRectTransform.anchoredPosition.y);
                 }
 
-                print($"{button.name} {buttonPosition} {button.transform.localPosition}");
-                if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2)){
-                    print("left: " + button.name);
-                    continue;
-                }
-                if (_transform.anchoredPosition.x > buttonPosition.x + (buttonRectTransform.rect.width/2)){
-                    print("right: " + button.name);
-                    continue;
-                }
-                
-                if (_transform.anchoredPosition.y < buttonPosition.y - (buttonRectTransform.rect.height/2))
-                {
-                    print("down: " + button.name);
-                    continue;
-                }
-                
-                if (_transform.anchoredPosition.y > buttonPosition.y + (buttonRectTransform.rect.height/2))
-                {
-                    print("up: " + button.name);
-                    continue;
-                }
+                // print($"{button.name} {buttonPosition} {button.transform.localPosition}");
+                // if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2)){
+                //     print("left: " + button.name);
+                //     continue;
+                // }
+                // if (_transform.anchoredPosition.x > buttonPosition.x + (buttonRectTransform.rect.width/2)){
+                //     print("right: " + button.name);
+                //     continue;
+                // }
+                //
+                // if (_transform.anchoredPosition.y < buttonPosition.y - (buttonRectTransform.rect.height/2))
+                // {
+                //     print("down: " + button.name);
+                //     continue;
+                // }
+                //
+                // if (_transform.anchoredPosition.y > buttonPosition.y + (buttonRectTransform.rect.height/2))
+                // {
+                //     print("up: " + button.name);
+                //     continue;
+                // }
 
                 if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2) ||
                     _transform.anchoredPosition.x > buttonPosition.x + (buttonRectTransform.rect.width/2) ||
@@ -94,9 +94,18 @@ public class CursorController : MonoBehaviour
                     continue;
                 }
                 
-                print("clicking: " + button.name);
+                //print("clicking: " + button.name);
                 button.OnPress.Invoke();
             }
+        }
+    }
+
+    public void HandleReturnToBodyInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            print("returning to body");
+            StartCoroutine(FirstPersonCameraController.Instance.returnToBody());
         }
     }
 }
