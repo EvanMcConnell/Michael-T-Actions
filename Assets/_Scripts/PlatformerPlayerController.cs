@@ -6,31 +6,28 @@ public class PlatformerPlayerController : MonoBehaviour
 {
     CharacterController characterController;
     [SerializeField] Transform camTransform;
-
+    Transform cameraNormal;
 
     [Header("Speed amd Movement")]
     [SerializeField] private float defaultSpeed = 2f;
-    [SerializeField] private float SprintMultiplier = 1.8f;
-
+    [SerializeField] private float sprintSpeed = 40f;
     private float currentSpeed;
 
     [Header("Gravity")]
     [SerializeField] public float gravity = -9.81f;
     [SerializeField] private float jumpStrength = .3f;
-    bool airJumpDid = false;
     [SerializeField] private Transform groundCheckPivot;
     [SerializeField] private LayerMask groundMask;
 
-    //Ground Check 
-    private float groundDistance = 0.4f;
+    [Header("Forgiveness")]
+    [SerializeField] private float groundColliderCheckSize = 0.4f;
+    [SerializeField] private float coyoteTime = 0.4f;
+    float coyoteTimeLeft;
 
-    [Header("")]
-    [SerializeField] private float cameraLeftRightSpeed = 5f;
 
     //Axis Input
     private float xAxis;
     private float yAxis;
-    private float yRot;
 
     //Checks 
     private bool isSprinting = false;
@@ -40,26 +37,33 @@ public class PlatformerPlayerController : MonoBehaviour
     private bool isAirJump = false;
 
 
-    // Vector 3
+    // Vectors to effect movement
     Vector3 movementVector;
+    Vector3 airMovementVector;
     Vector3 velocityVector;
     Vector3 inputVector;
-    Transform cameraNormal;
+
+    float actualSpeed;
 
     void Start()
     {
         cameraNormal = transform;
         characterController = GetComponent<CharacterController>();
-        yRot = 0;
-
     }
+
 
     void FixedUpdate()
     {
-        isGrounded = Physics.CheckSphere(groundCheckPivot.position, groundDistance, groundMask);
-//        Debug.Log(isGrounded);
-//        Debug.Log(velocityVector.y);
+        GroundedCheck();
+        GravityAndJumpCal();
+        MovementCal();
+    }
 
+    /// <summary>
+    /// All the effects of gravity and jump force in one place
+    /// </summary>
+    void GravityAndJumpCal()
+    {
         velocityVector.y += gravity * Time.deltaTime;
 
         if (isGrounded && velocityVector.y < 0)
@@ -75,71 +79,120 @@ public class PlatformerPlayerController : MonoBehaviour
 
         if (isAirJump)
         {
-            velocityVector.y = jumpStrength;
+            // half normal jump
+            velocityVector.y = jumpStrength / 2;
             movementVector = inputVector;
+
+            actualSpeed = isSprinting ? sprintSpeed : defaultSpeed;
             isAirJump = false;
         }
+    }
 
-        cameraNormal.localEulerAngles = new Vector3(0, 
+    /// <summary>
+    /// All the movement on the X and Z plain calculated here in one place
+    /// </summary>
+    void MovementCal()
+    {
+        //CameraDirection normalised
+        cameraNormal.localEulerAngles = new Vector3(0,
             camTransform.localEulerAngles.y, camTransform.localEulerAngles.z);
 
-        inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis; 
+        //Direction to move taking into account the player input and postion of the camera relative to the player
+        inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis;
 
-        if ((xAxis != 0 || yAxis !=0) && isGrounded)
+        // Ground Movement
+        if (isGrounded)
         {
-            Debug.Log("We movin");
             movementVector = inputVector;
+            actualSpeed = currentSpeed;
+            characterController.Move(velocityVector + (movementVector * actualSpeed * Time.deltaTime));
         }
-        
-        characterController.Move(velocityVector + (movementVector *  currentSpeed * (isSprinting ? SprintMultiplier : 1) * Time.deltaTime));
+        // Air Movement
+        else
+        {
+            airMovementVector = inputVector / 8;
+            characterController.Move(velocityVector + (movementVector * actualSpeed * Time.deltaTime) + airMovementVector);
+        }
+
+
         transform.LookAt(transform.position + inputVector.normalized);
     }
 
-    IEnumerator ChangeCurrentSpeedSmoothly(float start, float end, float steps, float timeStep)
-    {
-        currentSpeed = start;
-        float t = 0;
 
-        if (0 != end)
+    /// <summary>
+    /// To check if the player is on the ground
+    /// + a poor implimentation of coyotetime
+    /// </summary>
+    public void GroundedCheck()
+    {
+        Physics.CheckSphere(groundCheckPivot.position, groundColliderCheckSize, groundMask);
+
+        if (Physics.CheckSphere(groundCheckPivot.position, groundColliderCheckSize, groundMask))
         {
-            while (currentSpeed <= end)
-            {
-                t += steps;
-                currentSpeed = Mathf.Lerp(start, end, t);
-                yield return new WaitForSeconds(timeStep);
-            }
+            isGrounded = true;
+            coyoteTimeLeft = coyoteTime;
         }
         else
         {
-            while (currentSpeed > end)
-            {
-                t += steps;
-                currentSpeed = Mathf.Lerp(start, end, t);
-                yield return new WaitForSeconds(timeStep);
-            }
-        }
+            if (coyoteTimeLeft > 0)
+                coyoteTimeLeft -= Time.deltaTime;
 
-        currentSpeed = end;
+            else
+                isGrounded = false;
+        }
     }
 
 
-
-    private void WeWalkin(bool val)
+    /// <summary>
+    /// To control players walking speed, based on if any inputs and if sprinting
+    /// </summary>
+    private void WeWalkin()
     {
-        
-        
         StopAllCoroutines();
-
-        if (val)
+        //if input
+        if (xAxis != 0 || yAxis != 0)
         {
-            StartCoroutine(ChangeCurrentSpeedSmoothly(currentSpeed, defaultSpeed, .05f, .01f));
+            if (isSprinting)
+            {
+                StartCoroutine(ChangeSpeed(currentSpeed, sprintSpeed, .5f));
+            }
+            else
+            {
+                StartCoroutine(ChangeSpeed(currentSpeed, defaultSpeed, .5f));
+            }
         }
+        //No input
         else
         {
-            StartCoroutine(ChangeCurrentSpeedSmoothly(currentSpeed, 0, .05f, .01f));
+            currentSpeed = 0;
         }
-
     }
+
+    /// <summary>
+    /// To Change Speed smoothly, gracefully, like a swan
+    /// </summary>
+    /// <param name="v_start">speed to start with</param>
+    /// <param name="v_end">speed to end with</param>
+    /// <param name="duration">time to change speed</param>
+    /// <returns></returns>
+    IEnumerator ChangeSpeed(float v_start, float v_end, float duration)
+    {
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            //Dont change speed while in the air
+            while (!isGrounded) { yield return null; }
+
+            currentSpeed = Mathf.Lerp(v_start, v_end, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        currentSpeed = v_end;
+    }
+
+
+    /// INPUT HANDLERS
+
 
     public void HandleMovementInput(InputAction.CallbackContext context)
     {
@@ -147,16 +200,15 @@ public class PlatformerPlayerController : MonoBehaviour
         xAxis = inputMovement.x;
         yAxis = inputMovement.y;
 
-        if (context.started) WeWalkin(true);
+        if (context.started) WeWalkin();
 
-        if (context.canceled) WeWalkin(false);
+        if (context.canceled) WeWalkin();
 
     }
 
     public void HandleRotationInput(InputAction.CallbackContext context)
     {
         Vector2 inputMovement = context.ReadValue<Vector2>();
-        yRot += inputMovement.x;
     }
 
 
@@ -190,8 +242,20 @@ public class PlatformerPlayerController : MonoBehaviour
         if (context.started)
         {
             isSprinting = true;
+            WeWalkin();
         }
 
-        if (context.canceled) isSprinting = false;
+        if (context.canceled)
+        {
+            isSprinting = false;
+            WeWalkin();
+        }
+    }
+
+    /// GIZMOS
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(groundCheckPivot.position, groundColliderCheckSize);
     }
 }
