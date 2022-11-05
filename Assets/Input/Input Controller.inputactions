@@ -88,6 +88,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "5698ae05-c5b8-4e25-af10-1436d7e90168",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -159,6 +168,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1c05db31-0390-4ece-9893-a1839e8283c8",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d8b173bd-7a1d-4b1e-8223-c6498a08a29f",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -170,12 +190,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1c05db31-0390-4ece-9893-a1839e8283c8",
-                    "path": "<Keyboard>/shift",
+                    "id": "f5250e11-5bbc-49c1-9904-28f40bc151d0",
+                    "path": "<Mouse>/scroll/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sprint",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -7,6 +7,8 @@ public class PlatfromerCameraController : MonoBehaviour
 {
     private float xRot;
     private float yRot;
+    private float yScroll;
+
     private float cameraUpDownSpeed = 5f;
 
     [SerializeField] Transform FollowPos;
@@ -20,8 +22,8 @@ public class PlatfromerCameraController : MonoBehaviour
         transform.position = FollowPos.position;
 
         // Camera Up and Down
-        transform.localRotation = Quaternion.Euler(xRot*Time.deltaTime, yRot* Time.deltaTime, 0f);
-
+        transform.localRotation = Quaternion.Euler(Mathf.Clamp(xRot * Time.deltaTime, -20, 75), yRot* Time.deltaTime, 0f);
+        
         //TODO:
         //add limits axis to rot;
         //add zoom in and out with scroll;
@@ -33,6 +35,13 @@ public class PlatfromerCameraController : MonoBehaviour
         xRot += inputMovement.y;
         yRot += inputMovement.x;
 
+    }
+
+    public void HandleMouseScroll(InputAction.CallbackContext context)
+    {
+        Vector2 inputMovement = context.ReadValue<Vector2>();
+        yScroll = inputMovement.y;
+        Debug.Log(yScroll);
     }
 
     //TODO ZOOM

@@ -60,6 +60,7 @@ public class PlatformerPlayerController : MonoBehaviour
         GroundedCheck();
         GravityAndJumpCal();
         MovementCal();
+
         AnimatorController();
     }
 
