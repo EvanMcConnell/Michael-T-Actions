@@ -9,6 +9,7 @@ public class FirstPersonMovementController : MonoBehaviour
     private Vector2 movement;
     private Rigidbody rb;
     [SerializeField] private float walkSpeed = 0.1f;
+    [SerializeField] private Transform cameraHome;
 
     private void Awake()
     {
@@ -24,7 +25,9 @@ public class FirstPersonMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector3(movement.x, 0, movement.y) * walkSpeed;
+        Transform camReference = cameraHome;
+        camReference.eulerAngles = new Vector3(0, camReference.eulerAngles.y, camReference.eulerAngles.z);
+        rb.velocity = (camReference.right * movement.x + camReference.forward * movement.y) * walkSpeed;
     }
 
     public void HandleMovementInput(InputAction.CallbackContext context)

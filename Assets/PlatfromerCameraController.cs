@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,6 +43,7 @@ public class PlatfromerCameraController : MonoBehaviour
         Vector2 inputMovement = context.ReadValue<Vector2>();
         yScroll = inputMovement.y;
         Debug.Log(yScroll);
+        KeyValuePair<String, KeyValuePair<int, bool>> x;
     }
 
     //TODO ZOOM
