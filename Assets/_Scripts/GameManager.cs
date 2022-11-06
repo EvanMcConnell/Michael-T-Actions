@@ -86,4 +86,15 @@ public class GameManager : MonoBehaviour
     /// Yummy Doner Meat
     /// </summary>
     public bool yummyDonerMeat;
+
+    [Header("UNLOCK PAYWALLS, GIRLBOSS")]
+    [SerializeField] internal bool sprintUnlocked;
+    [SerializeField] internal bool doubleJumpUnlocked;
+    [SerializeField] internal bool zAxisUnlocked;
+
 }
+
+/// Classes
+
+enum Currency { realMoney, uselessInGameMoney, UsefulIngameMoney }
+

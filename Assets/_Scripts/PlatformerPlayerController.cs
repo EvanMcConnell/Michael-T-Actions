@@ -28,7 +28,6 @@ public class PlatformerPlayerController : MonoBehaviour
     [SerializeField] private float coyoteTime = 0.4f;
     float coyoteTimeLeft;
 
-
     //Axis Input
     private float xAxis;
     private float yAxis;
@@ -67,8 +66,11 @@ public class PlatformerPlayerController : MonoBehaviour
     {
         GroundedCheck();
         GravityAndJumpCal();
-        MovementCal();
 
+        
+            MovementCal();
+        
+        
         AnimatorController();
     }
 
@@ -112,7 +114,7 @@ public class PlatformerPlayerController : MonoBehaviour
             isJumping = false;
         }
 
-        if (isAirJump)
+        if (isAirJump && GameManager.Instance.doubleJumpUnlocked)
         {
             // half normal jump
             velocityVector.y = jumpStrength / 2;
@@ -134,8 +136,13 @@ public class PlatformerPlayerController : MonoBehaviour
 
         //Direction to move taking into account the player input and postion of the camera relative to the player
 
-        inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis;
-
+        if (GameManager.Instance.zAxisUnlocked)
+        {
+            inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis;
+        } else
+        {
+            inputVector = Vector3.right* xAxis;
+        }
         // Ground Movement
         if (isGrounded)
         {
@@ -189,7 +196,8 @@ public class PlatformerPlayerController : MonoBehaviour
         {
             if (isSprinting)
             {
-                StartCoroutine(ChangeSpeed(currentSpeed, sprintSpeed, .5f));
+                if (GameManager.Instance.sprintUnlocked)
+                    StartCoroutine(ChangeSpeed(currentSpeed, sprintSpeed, .5f));
             }
             else
             {
