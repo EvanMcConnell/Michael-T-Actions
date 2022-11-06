@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45115238, g: 0.50093, b: 0.5738618, a: 1}
+  m_IndirectSpecularColor: {r: 0.45115238, g: 0.50093, b: 0.5738619, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -54899,7 +54899,7 @@ PrefabInstance:
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 450466087}
+      objectReference: {fileID: 1854228314}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -54907,18 +54907,22 @@ PrefabInstance:
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 361388955}
+      objectReference: {fileID: 1854228314}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 450466087}
+      objectReference: {fileID: 1854228314}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 450466087}
+      objectReference: {fileID: 1854228314}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HandleMovementInput
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -54934,7 +54938,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HandleSprint
+      value: HandleSprintInput
+      objectReference: {fileID: 0}
+    - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlatformerInputHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -54942,15 +54950,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PlatfromerCameraController, Assembly-CSharp
+      value: PlatformerInputHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlatformerPlayerController, Assembly-CSharp
+      value: PlatformerInputHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlatformerPlayerController, Assembly-CSharp
+      value: PlatformerInputHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -55006,6 +55014,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+--- !u!1 &1854228313 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9209839326574130760, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+  m_PrefabInstance: {fileID: 1854228312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1854228314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854228313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac463ba32cc22f45a6f35e88cd51408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!850595691 &2003514217
 LightingSettings:
   m_ObjectHideFlags: 0

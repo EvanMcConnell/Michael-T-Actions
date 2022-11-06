@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlatfromerCameraController : MonoBehaviour
 {
+    public static PlatfromerCameraController Instance;
+    
     private float xRot;
     private float yRot;
     private float yScroll;
@@ -13,6 +15,12 @@ public class PlatfromerCameraController : MonoBehaviour
     private float cameraUpDownSpeed = 5f;
 
     [SerializeField] Transform FollowPos;
+    
+    private void Awake()
+    {
+        Instance = this;
+    }
+    
     private void Start()
     {
         xRot = 0;
@@ -30,21 +38,27 @@ public class PlatfromerCameraController : MonoBehaviour
         //add zoom in and out with scroll;
     }
 
-    public void HandleRotationInput(InputAction.CallbackContext context)
+    public void addRoationInput(float x, float y)
     {
-        Vector2 inputMovement = context.ReadValue<Vector2>();
-        xRot += inputMovement.y;
-        yRot += inputMovement.x;
-
+        xRot += y;
+        yRot += x;
     }
 
-    public void HandleMouseScroll(InputAction.CallbackContext context)
-    {
-        Vector2 inputMovement = context.ReadValue<Vector2>();
-        yScroll = inputMovement.y;
-        Debug.Log(yScroll);
-        KeyValuePair<String, KeyValuePair<int, bool>> x;
-    }
+    // public void HandleRotationInput(InputAction.CallbackContext context)
+    // {
+    //     Vector2 inputMovement = context.ReadValue<Vector2>();
+    //     xRot += inputMovement.y;
+    //     yRot += inputMovement.x;
+    //
+    // }
+    //
+    // public void HandleMouseScroll(InputAction.CallbackContext context)
+    // {
+    //     Vector2 inputMovement = context.ReadValue<Vector2>();
+    //     yScroll = inputMovement.y;
+    //     Debug.Log(yScroll);
+    //     KeyValuePair<String, KeyValuePair<int, bool>> x;
+    // }
 
     //TODO ZOOM
 }

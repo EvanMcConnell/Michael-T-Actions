@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlatformerPlayerController : MonoBehaviour
 {
+    public static PlatformerPlayerController Instance;
+    
     CharacterController characterController;
     [SerializeField] Transform camTransform;
     [SerializeField] Animator animator;
@@ -46,6 +49,11 @@ public class PlatformerPlayerController : MonoBehaviour
     Vector3 inputVector;
 
     float actualSpeed;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -173,7 +181,7 @@ public class PlatformerPlayerController : MonoBehaviour
     /// <summary>
     /// To control players walking speed, based on if any inputs and if sprinting
     /// </summary>
-    private void WeWalkin()
+    public void WeWalkin()
     {
         StopAllCoroutines();
         //if input
@@ -217,62 +225,100 @@ public class PlatformerPlayerController : MonoBehaviour
         currentSpeed = v_end;
     }
 
+    public void addMovementInput(float x, float y)
+    {
+        xAxis = x;
+        yAxis = y;
+    }
+    
+    public void OnJumpPressed()
+    {
+        if (isGrounded)
+        {
+            DidAirJump = false;
+            isJumping = true;
+        }
+        else if (!DidAirJump)
+        {
+            isAirJump = true;
+            DidAirJump = true;
+        }
+    }
+
+    public void OnJumpReleased()
+    {
+        isJumping = false;
+        isAirJump = false;
+    }
+    
+    public void OnSprintPressed()
+    {
+        isSprinting = true;
+        WeWalkin();
+    }
+
+    public void OnSprintReleased()
+    {
+        isSprinting = false;
+        WeWalkin();
+    }
+
 
     /// INPUT HANDLERS
 
 
-    public void HandleMovementInput(InputAction.CallbackContext context)
-    {
-        Vector2 inputMovement = context.ReadValue<Vector2>();
-        xAxis = inputMovement.x;
-        yAxis = inputMovement.y;
-
-        if (context.started) WeWalkin();
-
-        if (context.canceled) WeWalkin();
-
-    }
-
-
-
-    public void HandleJumpInput(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            if (isGrounded)
-            {
-                DidAirJump = false;
-                isJumping = true;
-            }
-            else if (!DidAirJump)
-            {
-                isAirJump = true;
-                DidAirJump = true;
-            }
-
-        }
-
-        if (context.canceled)
-        {
-            isJumping = false;
-            isAirJump = false;
-        }
-    }
-
-    public void HandleSprint(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            isSprinting = true;
-            WeWalkin();
-        }
-
-        if (context.canceled)
-        {
-            isSprinting = false;
-            WeWalkin();
-        }
-    }
+    // public void HandleMovementInput(InputAction.CallbackContext context)
+    // {
+    //     Vector2 inputMovement = context.ReadValue<Vector2>();
+    //     xAxis = inputMovement.x;
+    //     yAxis = inputMovement.y;
+    //
+    //     if (context.started) WeWalkin();
+    //
+    //     if (context.canceled) WeWalkin();
+    //
+    // }
+    //
+    //
+    //
+    // public void HandleJumpInput(InputAction.CallbackContext context)
+    // {
+    //     if (context.performed)
+    //     {
+    //         if (isGrounded)
+    //         {
+    //             DidAirJump = false;
+    //             isJumping = true;
+    //         }
+    //         else if (!DidAirJump)
+    //         {
+    //             isAirJump = true;
+    //             DidAirJump = true;
+    //         }
+    //
+    //     }
+    //
+    //     if (context.canceled)
+    //     {
+    //         isJumping = false;
+    //         isAirJump = false;
+    //     }
+    // }
+    //
+    // public void HandleSprint(InputAction.CallbackContext context)
+    // {
+    //     if (context.started)
+    //     {
+    //         isSprinting = true;
+    //         WeWalkin();
+    //     }
+    //
+    //     if (context.canceled)
+    //     {
+    //         isSprinting = false;
+    //         WeWalkin();
+    //     }
+    // }
 
     /// GIZMOS
 

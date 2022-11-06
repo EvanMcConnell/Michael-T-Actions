@@ -21,11 +21,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public PlatformerInputHandler inputHandler;
+
     private void Awake()
     {
         if(_instance == null) _instance = this;
         else Destroy(gameObject);
 
+        inputHandler = GetComponent<PlatformerInputHandler>();
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
