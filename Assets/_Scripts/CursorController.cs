@@ -99,4 +99,13 @@ public class CursorController : MonoBehaviour
             }
         }
     }
+    
+    public void HandleReturnToBodyInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            print("returning to body");
+            StartCoroutine(FirstPersonCameraController.Instance.returnToBody());
+        }
+    }
 }
