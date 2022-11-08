@@ -34,53 +34,86 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
+    [SerializeField] private int canhaBucks;
+    [SerializeField] private int kubaKoin;
+    [SerializeField] private int _realMoney;
 
-    /// 
-    /// WOW this could just be 3 lines of code but instead I did all this bs, 
-    /// suppose it makes it cleaner in other scripts
-    /// We can also do checks for getters and setters 
-    /// 
-
-    // Useless Money for the player to collect and do nothing with 
-    private float _usefulIngameMoney;
-    public float UsefulInGameMoney => _usefulIngameMoney;
-    
-    /// <summary>
-    /// Add/Remove money from pool
-    /// </summary>
-    /// <param name="value">amount to change</param>
-    public void ChangeUsefulsInGameMoney(float value)
+    public int GetCurrency(Currency currency)
     {
-        _usefulIngameMoney += value;
+        switch (currency)
+        {
+            case Currency.kubaKoin:
+                return kubaKoin;
 
-        //TODO: add checks for negative values
+            case Currency.canhaBucks:
+                return canhaBucks;
+
+            case Currency.realMoney:
+                return _realMoney;
+
+            default:
+                return 0;
+        }
     }
-    public void SetUsefulInGameMoney(float value) => _usefulIngameMoney = value;
 
-
-    // Useful Money that is hard to optain 
-    private float _uselessIngameMoney;
-    public float UselessInGameMoney => _uselessIngameMoney;
-    public void ChangeUselessInGameMoney(float value)
+    public void SetCurrency(Currency currency, int value)
     {
-        _uselessIngameMoney += value;
-        //TODO: add checks for negative values
+        switch (currency)
+        {
+            case Currency.kubaKoin:
+                kubaKoin = value;
+                break;
 
+            case Currency.canhaBucks:
+                 canhaBucks = value;
+                break;
+
+            case Currency.realMoney:
+                 _realMoney = value;
+                break;
+        }
     }
-    public void SetUselessInGameMoney(float value) => _uselessIngameMoney = value;
 
-
-    // Jacks actual money and IBAN
-    private float _realMoney;
-    public float RealMoney => _usefulIngameMoney;
-    public void ChangerealMoney(float value)
+    public void IncrementCurrency(Currency currency, int value)
     {
-        _usefulIngameMoney += value;
-        //TODO: add checks for negative values
+        switch (currency)
+        {
+            case Currency.kubaKoin:
+                kubaKoin += value;
+                break;
 
+            case Currency.canhaBucks:
+                canhaBucks += value;
+                break;
+
+            case Currency.realMoney:
+                _realMoney += value;
+                break;
+        }
     }
-    public void SetRealMoney(float value) => _usefulIngameMoney = value;
 
+    public bool PurchaseWithCurrency(Currency currency, int value)
+    {
+        if (Currency.kubaKoin == currency && kubaKoin >= value)
+        {
+            kubaKoin -= value;
+            return true;
+        }
+        else if (Currency.canhaBucks == currency && canhaBucks >= value)
+        {
+            canhaBucks -= value;
+            return true;
+        }
+        else if (Currency.realMoney == currency && _realMoney >= value)
+        {
+            _realMoney -= value;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     /// <summary>
     /// Yummy Doner Meat
@@ -95,6 +128,5 @@ public class GameManager : MonoBehaviour
 }
 
 /// Classes
-
-enum Currency { realMoney, uselessInGameMoney, UsefulIngameMoney }
+public enum Currency { realMoney, kubaKoin, canhaBucks }
 
