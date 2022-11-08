@@ -48,7 +48,6 @@ public class PlayerPurchaseController : MonoBehaviour
                 {
                     Debug.Log("Purchased Failed, not enough cash");
                 }
-
             }
             else
             {
