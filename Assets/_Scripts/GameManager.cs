@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int kubaKoin;
     [SerializeField] private int _realMoney;
 
+    public List<string> receipts;
+
     public int GetCurrency(Currency currency)
     {
         switch (currency)
@@ -92,21 +94,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public bool PurchaseWithCurrency(Currency currency, int value)
+    public bool PurchaseWithCurrency(Currency currency, int value, string name)
     {
         if (Currency.kubaKoin == currency && kubaKoin >= value)
         {
             kubaKoin -= value;
+            receipts.Add(name);
             return true;
         }
         else if (Currency.canhaBucks == currency && canhaBucks >= value)
         {
             canhaBucks -= value;
+            receipts.Add(name);
             return true;
         }
         else if (Currency.realMoney == currency && _realMoney >= value)
         {
             _realMoney -= value;
+            receipts.Add(name);
             return true;
         }
         else

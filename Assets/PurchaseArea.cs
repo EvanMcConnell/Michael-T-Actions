@@ -21,7 +21,7 @@ public class PurchaseArea : MonoBehaviour
 
     public bool TryPurchase()
     {
-        if (GameManager.Instance.PurchaseWithCurrency(currency, cost))
+        if (GameManager.Instance.PurchaseWithCurrency(currency, cost, name))
         {
             purchaseEvent.Invoke();
             return true;
