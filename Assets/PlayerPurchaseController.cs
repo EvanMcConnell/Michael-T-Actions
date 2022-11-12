@@ -12,12 +12,20 @@ public class PlayerPurchaseController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PurchaseArea"))
-        { 
+        {
             PurchasePrompt.SetActive(true);
             inPurchaseArea = true;
             purchaseAreaCollider = other;
         }
 
+        if (other.CompareTag("Coin"))
+        {
+            if (other.transform.TryGetComponent(out CoinMetaData coin))
+            {
+                coin.PickupCoin();
+                Destroy(other.gameObject);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)

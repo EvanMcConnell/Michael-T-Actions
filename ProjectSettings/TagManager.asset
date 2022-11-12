@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - PurchaseArea
+  - Coin
   layers:
   - Default
   - TransparentFX
