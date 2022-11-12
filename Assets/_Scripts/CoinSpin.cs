@@ -23,7 +23,9 @@ public class CoinSpin : MonoBehaviour
 
     void Start()
     {
-        
+        zeroY = transform.position.y;
+        posX = transform.position.x;
+        posZ = transform.position.z;
     }
 
     void Update()

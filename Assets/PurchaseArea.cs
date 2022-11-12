@@ -8,27 +8,26 @@ public class PurchaseArea : MonoBehaviour
     [SerializeField] private int cost;
     [SerializeField] Currency currency;
     [SerializeField] UnityEvent purchaseEvent;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
+    internal bool purchased = false;
 
     public bool TryPurchase()
     {
         if (GameManager.Instance.PurchaseWithCurrency(currency, cost, name))
         {
             purchaseEvent.Invoke();
+
+            if (TryGetComponent(out CharacterMetaData data))
+            {
+                data.SetDialogue(false);
+            }
             return true;
         } 
         else
         {
-            Debug.Log("POOR");
+            if (TryGetComponent(out CharacterMetaData data))
+            {
+                data.SetDialogue(true);
+            }
             return false;
         }
     }
