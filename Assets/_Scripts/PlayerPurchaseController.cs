@@ -42,6 +42,12 @@ public class PlayerPurchaseController : MonoBehaviour
                 Destroy(other.gameObject);
             }
         }
+
+        if (other.CompareTag("PlayerCatcher"))
+        {
+            if (other.transform.TryGetComponent(out PlayerCatcher playerCatcher))
+                transform.position = playerCatcher.ReSpawnPoint.position;
+        }
     }
 
     private void OnTriggerExit(Collider other)

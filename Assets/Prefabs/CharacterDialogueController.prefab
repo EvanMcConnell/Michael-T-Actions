@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 1533941082206914003}
   m_Layer: 0
   m_Name: CharacterDialogueController
-  m_TagString: CharacterArea
+  m_TagString: InteractArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -496,7 +496,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533941082206913996}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 38.756264, y: 1.666, z: -430.92935}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -535,4 +535,4 @@ MonoBehaviour:
   dialogueText: {fileID: 1533941081023899577}
   portrait: {fileID: 1533941080974348939}
   CharacterSpriteRenderer: {fileID: 1533941080967586694}
-  DialogueMetaData: {fileID: 11400000, guid: a7c2ff50bb1721b4896a2f2c0434c209, type: 2}
+  DialogueMetaData: {fileID: 11400000, guid: 8cd2313ab236b844cb50888babac5c1c, type: 2}
