@@ -38,7 +38,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int kubaKoin;
     [SerializeField] private int _realMoney;
 
-    public List<string> receipts;
+    public List<Receipt> receipts;
+
+    [System.Serializable]
+    public struct Receipt
+    {
+        public Currency Oil;
+        public string Title;
+        public string Value;
+        public string Balance;
+    }
 
     public int GetCurrency(Currency currency)
     {
@@ -99,19 +108,40 @@ public class GameManager : MonoBehaviour
         if (Currency.kubaKoin == currency && kubaKoin >= value)
         {
             kubaKoin -= value;
-            receipts.Add(name);
+            
+            Receipt newReceipt = new Receipt();
+            newReceipt.Oil = Currency.kubaKoin;
+            newReceipt.Title = name;
+            newReceipt.Value = (-value).ToString();
+            newReceipt.Balance = kubaKoin.ToString();
+            receipts.Add(newReceipt);
+            
             return true;
         }
         else if (Currency.canhaBucks == currency && canhaBucks >= value)
         {
             canhaBucks -= value;
-            receipts.Add(name);
+            
+            Receipt newReceipt = new Receipt();
+            newReceipt.Oil = Currency.canhaBucks;
+            newReceipt.Title = name;
+            newReceipt.Value = (-value).ToString();
+            newReceipt.Balance = canhaBucks.ToString();
+            receipts.Add(newReceipt);
+            
             return true;
         }
         else if (Currency.realMoney == currency && _realMoney >= value)
         {
             _realMoney -= value;
-            receipts.Add(name);
+            
+            Receipt newReceipt = new Receipt();
+            newReceipt.Oil = Currency.realMoney;
+            newReceipt.Title = name;
+            newReceipt.Value = (-value).ToString();
+            newReceipt.Balance = _realMoney.ToString();
+            receipts.Add(newReceipt);
+            
             return true;
         }
         else
