@@ -28598,6 +28598,29 @@ Transform:
   m_Father: {fileID: 1868732591}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1291232064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1533941082206913996, guid: f538b5f112953114aacf9beaf72463b2, type: 3}
+  m_PrefabInstance: {fileID: 1936865777}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1291232068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291232064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44aedc86f47607b4db139b34c2ce6a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayName: Soul
+  cost: 87
+  currency: 1
+  purchaseEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1303959241
 GameObject:
   m_ObjectHideFlags: 0

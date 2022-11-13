@@ -126,9 +126,38 @@ public class GameManager : MonoBehaviour
     public bool yummyDonerMeat;
 
     [Header("UNLOCK PAYWALLS, GIRLBOSS")]
-    [SerializeField] internal bool sprintUnlocked;
-    [SerializeField] internal bool doubleJumpUnlocked;
-    [SerializeField] internal bool zAxisUnlocked;
+    //Sprints
+    [SerializeField] internal bool sprintActivated;
+    internal bool sprintUnlocked;
+    internal float sprintDurationLeft;            
+
+    [SerializeField] internal bool doubleJumpActivated;
+    [SerializeField] internal bool zAxisActivated;
+
+    /// <summary>
+    /// Ability
+    /// Cosmetic 
+    /// duration
+    /// </summary>
+    public void SubscribeToSprint()
+    {
+        // is unlocked 
+        StartCoroutine(SubscribeToSprintCor(5));
+    }
+
+    IEnumerator SubscribeToSprintCor(int duration)
+    {
+        int timeLeft = duration;
+        sprintActivated = true;
+
+        while (timeLeft > 0)
+        {
+            yield return new WaitForSeconds(1);
+            timeLeft--;
+        }
+
+        sprintActivated = false;
+    }
 
 }
 

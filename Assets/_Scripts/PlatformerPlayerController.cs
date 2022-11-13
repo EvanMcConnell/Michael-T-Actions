@@ -114,7 +114,7 @@ public class PlatformerPlayerController : MonoBehaviour
             isJumping = false;
         }
 
-        if (isAirJump && GameManager.Instance.doubleJumpUnlocked)
+        if (isAirJump && GameManager.Instance.doubleJumpActivated)
         {
             // half normal jump
             velocityVector.y = jumpStrength / 2;
@@ -136,7 +136,7 @@ public class PlatformerPlayerController : MonoBehaviour
 
         //Direction to move taking into account the player input and postion of the camera relative to the player
 
-        if (GameManager.Instance.zAxisUnlocked)
+        if (GameManager.Instance.zAxisActivated)
         {
             inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis;
         } else
@@ -196,7 +196,7 @@ public class PlatformerPlayerController : MonoBehaviour
         {
             if (isSprinting)
             {
-                if (GameManager.Instance.sprintUnlocked)
+                if (GameManager.Instance.sprintActivated)
                     StartCoroutine(ChangeSpeed(currentSpeed, sprintSpeed, .5f));
             }
             else
