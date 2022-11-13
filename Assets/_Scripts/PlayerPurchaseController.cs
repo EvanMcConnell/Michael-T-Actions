@@ -46,8 +46,24 @@ public class PlayerPurchaseController : MonoBehaviour
         if (other.CompareTag("PlayerCatcher"))
         {
             if (other.transform.TryGetComponent(out PlayerCatcher playerCatcher))
-                transform.position = playerCatcher.ReSpawnPoint.position;
+            {
+               StartCoroutine(TeleportSlowly(playerCatcher.ReSpawnPoint.position));
+                
+            }
+
         }
+    }
+
+    IEnumerator TeleportSlowly(Vector3 point)
+    {
+        GetComponent<PlatformerPlayerController>().enabled = false;
+        GetComponent<CharacterController>().Move(Vector3.zero);
+        transform.position = point;
+
+        yield return new WaitForSeconds(.02f);
+        GetComponent<CharacterController>().Move(Vector3.zero);
+
+        GetComponent<PlatformerPlayerController>().enabled = true;
     }
 
     private void OnTriggerExit(Collider other)
