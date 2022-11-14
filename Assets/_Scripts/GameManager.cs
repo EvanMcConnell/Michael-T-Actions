@@ -156,6 +156,19 @@ public class GameManager : MonoBehaviour
     public bool yummyDonerMeat;
 
     [Header("UNLOCK PAYWALLS, GIRLBOSS")]
+
+    public Dictionary<SubscriptionID, SubscriptionClass> subscriptionClasses; 
+
+    public bool IsSubActive(SubscriptionID ID)
+    {
+        return subscriptionClasses[ID].isActive;
+    }
+
+    public bool IsSubUnlocked(SubscriptionID ID)
+    {
+        return subscriptionClasses[ID].isUnlocked;
+    }
+
     //Sprints
     [SerializeField] internal bool sprintActivated;
     internal bool sprintUnlocked;
@@ -164,33 +177,50 @@ public class GameManager : MonoBehaviour
     [SerializeField] internal bool doubleJumpActivated;
     [SerializeField] internal bool zAxisActivated;
 
-    /// <summary>
-    /// Ability
-    /// Cosmetic 
-    /// duration
-    /// </summary>
-    public void SubscribeToSprint()
+ 
+    public void SubScribe(SubscriptionID ID)
     {
         // is unlocked 
-        StartCoroutine(SubscribeToSprintCor(5));
+        StartCoroutine(SubscribeToSprintCor(ID));
+        //Change Cosmetics
     }
 
-    IEnumerator SubscribeToSprintCor(int duration)
+    public int GetSubTimeLeft(SubscriptionID ID)
     {
-        int timeLeft = duration;
-        sprintActivated = true;
+        if (subscriptionClasses.TryGetValue(ID, out SubscriptionClass sub))
+        {
+            return sub.timeLeft;
+        }
+        return -1;
+    }
 
-        while (timeLeft > 0)
+    IEnumerator SubscribeToSprintCor(SubscriptionID ID)
+    {
+        subscriptionClasses[ID].timeLeft = subscriptionClasses[ID].duration;
+        subscriptionClasses[ID].isActive = true;
+
+        while (subscriptionClasses[ID].timeLeft > 0)
         {
             yield return new WaitForSeconds(1);
-            timeLeft--;
+            subscriptionClasses[ID].timeLeft--;
         }
 
-        sprintActivated = false;
+        subscriptionClasses[ID].isActive = false;
     }
 
 }
 
 /// Classes
 public enum Currency { realMoney, kubaKoin, canhaBucks }
+public enum SubscriptionID { sprint, doubleJump }
 
+[System.Serializable]
+public class SubscriptionClass
+{
+    [SerializeField] internal SubscriptionID Id;
+    [SerializeField] internal bool isActive;
+    [SerializeField] internal bool isUnlocked;
+    [SerializeField] internal int duration = 120;
+    [SerializeField] internal int timeLeft;
+
+}

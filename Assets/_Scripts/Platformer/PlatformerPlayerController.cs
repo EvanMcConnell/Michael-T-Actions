@@ -196,7 +196,7 @@ public class PlatformerPlayerController : MonoBehaviour
         {
             if (isSprinting)
             {
-                if (GameManager.Instance.sprintActivated)
+                if (GameManager.Instance.IsSubActive(SubscriptionID.sprint))
                     StartCoroutine(ChangeSpeed(currentSpeed, sprintSpeed, .5f));
             }
             else
