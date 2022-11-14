@@ -25,6 +25,7 @@ public class ComputerWindow : MonoBehaviour
         TaskbarTab.SetActive(true);
         TaskbarTab.transform.GetChild(0).gameObject.SetActive(false);
         TaskbarTab.transform.GetChild(1).gameObject.SetActive(true);
+        Desktop.SetActive(false);
     }
     
     public void CloseWindow()
