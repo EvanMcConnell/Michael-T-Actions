@@ -19,7 +19,6 @@ public class CursorController : MonoBehaviour
     void Start()
     {
         _transform = GetComponent<RectTransform>();
-        print("started");
     }
 
     void Update()
