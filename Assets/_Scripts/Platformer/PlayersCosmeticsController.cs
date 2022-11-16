@@ -20,7 +20,7 @@ public class PlayersCosmeticsController : MonoBehaviour
     }
 
 
-    public void ActivateCosmetic(string ID, bool unlocked = true) {
+    public void ActivateCosmetic(SubscriptionID ID, bool unlocked = true) {
         try
         {
             Cosmetic cos = cosmetics.Find(cos => cos.ID == ID);
@@ -32,13 +32,15 @@ public class PlayersCosmeticsController : MonoBehaviour
         {
             Debug.LogError($"no cosmetic with that ID or somethin IDK, heres the error: {e}");
         }
+
+        ResetAllCosmetics();
     }
 }
 
 [System.Serializable]
 public class Cosmetic
 {
-    [SerializeField] internal string ID;
+    [SerializeField] internal SubscriptionID ID;
     [SerializeField] internal GameObject itemGameobject;
     [SerializeField] internal bool unlocked;
 }

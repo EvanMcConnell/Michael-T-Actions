@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class PurchaseArea : MonoBehaviour
 {
-    [SerializeField] private string displayName;
+    [SerializeField] public string displayName;
     [SerializeField] private int cost;
     [SerializeField] Currency currency;
     [SerializeField] UnityEvent purchaseEvent;

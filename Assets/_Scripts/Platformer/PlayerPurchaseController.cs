@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerPurchaseController : MonoBehaviour
@@ -28,6 +29,7 @@ public class PlayerPurchaseController : MonoBehaviour
                 if (!purchaseArea.purchased)
                 {
                     PurchasePrompt.SetActive(true);
+                    PurchasePrompt.GetComponent<TextMeshPro>().SetText($"{purchaseArea.displayName}\ne to purchase");
                     inPurchaseArea = true;
                     purchaseAreaCollider = other;
                 }

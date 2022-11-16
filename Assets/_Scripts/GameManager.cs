@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public Dictionary<SubscriptionID, SubscriptionClass> SubscriptionClasses { get => subscriptionClasses; set => subscriptionClasses = value; }
+
+    private Dictionary<SubscriptionID, SubscriptionClass> subscriptionClasses = new Dictionary<SubscriptionID, SubscriptionClass>();
+
     public PlatformerInputHandler inputHandler;
 
     private void Awake()
@@ -32,6 +36,11 @@ public class GameManager : MonoBehaviour
         
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        subscriptionClasses.Add(SubscriptionID.sprint, new SubscriptionClass(false, false, 120, 0));
+        subscriptionClasses.Add(SubscriptionID.doubleJump, new SubscriptionClass(false, false, 120, 0));
+        subscriptionClasses.Add(SubscriptionID.zAxis, new SubscriptionClass(true, false, 120, 0));
+        subscriptionClasses.Add(SubscriptionID.bed, new SubscriptionClass(false, false, 120, 0));
     }
 
     [SerializeField] private int canhaBucks;
@@ -155,9 +164,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public bool yummyDonerMeat;
 
-    [Header("UNLOCK PAYWALLS, GIRLBOSS")]
-
-    public Dictionary<SubscriptionID, SubscriptionClass> subscriptionClasses; 
 
     public bool IsSubActive(SubscriptionID ID)
     {
@@ -169,20 +175,14 @@ public class GameManager : MonoBehaviour
         return subscriptionClasses[ID].isUnlocked;
     }
 
-    //Sprints
-    [SerializeField] internal bool sprintActivated;
-    internal bool sprintUnlocked;
-    internal float sprintDurationLeft;            
-
-    [SerializeField] internal bool doubleJumpActivated;
-    [SerializeField] internal bool zAxisActivated;
-
  
     public void SubScribe(SubscriptionID ID)
     {
         // is unlocked 
         StartCoroutine(SubscribeToSprintCor(ID));
-        //Change Cosmetics
+        ///REEE
+        FindObjectOfType<PlayersCosmeticsController>().ActivateCosmetic(ID);
+
     }
 
     public int GetSubTimeLeft(SubscriptionID ID)
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         {
             return sub.timeLeft;
         }
-        return -1;
+        return 0;
     }
 
     IEnumerator SubscribeToSprintCor(SubscriptionID ID)
@@ -212,15 +212,21 @@ public class GameManager : MonoBehaviour
 
 /// Classes
 public enum Currency { realMoney, kubaKoin, canhaBucks }
-public enum SubscriptionID { sprint, doubleJump }
+public enum SubscriptionID { sprint, doubleJump, zAxis, bed }
 
 [System.Serializable]
 public class SubscriptionClass
 {
-    [SerializeField] internal SubscriptionID Id;
     [SerializeField] internal bool isActive;
     [SerializeField] internal bool isUnlocked;
     [SerializeField] internal int duration = 120;
     [SerializeField] internal int timeLeft;
 
+    public SubscriptionClass(bool isActive, bool isUnlocked, int duration, int timeLeft)
+    {
+        this.isActive = isActive;
+        this.isUnlocked = isUnlocked;
+        this.duration = duration;
+        this.timeLeft = timeLeft;
+    }
 }

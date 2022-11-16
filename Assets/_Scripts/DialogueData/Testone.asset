@@ -15,5 +15,6 @@ MonoBehaviour:
   Dialogue: This time im really gonna do it
   DialogueHappy: 
   DialogueSad: 
-  profileImage: {fileID: 21300000, guid: e0dd350de103cd74da4841691e581f42, type: 3}
-  CharacterImage: {fileID: 21300000, guid: e0dd350de103cd74da4841691e581f42, type: 3}
+  profileImage: {fileID: -676572846, guid: 7c4402d2a8e44a847bca90a375b2abcb, type: 3}
+  CharacterImage: {fileID: -676572846, guid: 7c4402d2a8e44a847bca90a375b2abcb, type: 3}
+  introAudio: {fileID: 0}
