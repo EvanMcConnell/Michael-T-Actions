@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     private Dictionary<SubscriptionID, SubscriptionClass> subscriptionClasses = new Dictionary<SubscriptionID, SubscriptionClass>();
 
+    public List<SubscriptionClassForMakingOnly> subBuild;
+
+
     public PlatformerInputHandler inputHandler;
 
     private void Awake()
@@ -37,10 +40,10 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        subscriptionClasses.Add(SubscriptionID.sprint, new SubscriptionClass(false, false, 120, 0));
-        subscriptionClasses.Add(SubscriptionID.doubleJump, new SubscriptionClass(false, false, 120, 0));
-        subscriptionClasses.Add(SubscriptionID.zAxis, new SubscriptionClass(true, false, 120, 0));
-        subscriptionClasses.Add(SubscriptionID.bed, new SubscriptionClass(false, false, 120, 0));
+        foreach (var sub in subBuild)
+        {
+            subscriptionClasses.Add(sub.ID, new SubscriptionClass(sub.isActive, sub.isUnlocked, sub.duration, sub.timeLeft, sub.barTranform));
+        }
     }
 
     [SerializeField] private int canhaBucks;
@@ -194,6 +197,21 @@ public class GameManager : MonoBehaviour
         return 0;
     }
 
+    public float GetBarSize(SubscriptionID ID)
+    {
+        if (subscriptionClasses.TryGetValue(ID, out SubscriptionClass sub))
+        {
+            if (sub.timeLeft == 0)
+            {
+                return 0;
+            }
+
+            Debug.Log($"{(float)sub.timeLeft} / {(float)sub.duration} = {(float)sub.timeLeft/ (float)sub.duration}");
+            return (float)sub.timeLeft / (float)sub.duration;
+        }
+        return 0;
+    }
+
     IEnumerator SubscribeToSprintCor(SubscriptionID ID)
     {
         subscriptionClasses[ID].timeLeft = subscriptionClasses[ID].duration;
@@ -221,12 +239,25 @@ public class SubscriptionClass
     [SerializeField] internal bool isUnlocked;
     [SerializeField] internal int duration = 120;
     [SerializeField] internal int timeLeft;
+    [SerializeField] internal Transform barTranform; 
 
-    public SubscriptionClass(bool isActive, bool isUnlocked, int duration, int timeLeft)
+    public SubscriptionClass(bool isActive, bool isUnlocked, int duration, int timeLeft, Transform barTranform)
     {
         this.isActive = isActive;
         this.isUnlocked = isUnlocked;
         this.duration = duration;
         this.timeLeft = timeLeft;
     }
+}
+
+[System.Serializable]
+public class SubscriptionClassForMakingOnly
+{
+    [SerializeField] internal SubscriptionID ID;
+    [SerializeField] internal bool isActive;
+    [SerializeField] internal bool isUnlocked;
+    [SerializeField] internal int duration = 120;
+    [SerializeField] internal int timeLeft;
+    [SerializeField] internal Transform barTranform;
+
 }
