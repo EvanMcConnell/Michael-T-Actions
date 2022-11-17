@@ -69,7 +69,15 @@ public class PlatformerInputHandler : MonoBehaviour
         if (context.started)
         {
             movementController.isPaused = true;
-            WorldWideWeb.Instance.pauseGame();
+
+            try
+            {
+                WorldWideWeb.Instance.pauseGame();
+            }
+            catch
+            {
+                //where's jack
+            }
         }
     }
 }

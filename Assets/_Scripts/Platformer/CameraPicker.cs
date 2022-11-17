@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CameraPicker : MonoBehaviour
 {
+    [SerializeField] private Canvas[] canvases;
+    
     void Start()
     {
         print("maybe");
@@ -14,8 +16,11 @@ public class CameraPicker : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
 
-            transform.parent.Find("Canvas").GetComponent<Canvas>().worldCamera =
-                transform.GetChild(1).GetComponent<Camera>();
+
+            foreach (Canvas canvas in canvases)
+            {
+                canvas.worldCamera = transform.GetChild(1).GetComponent<Camera>();
+            }
         }
     }
 }
