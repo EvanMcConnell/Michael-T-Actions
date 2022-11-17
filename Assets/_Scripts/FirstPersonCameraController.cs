@@ -11,6 +11,7 @@ public class FirstPersonCameraController : MonoBehaviour
     private float _xRot, _yRot;
     [SerializeField] private float Sensitivity = 1;
     public bool isHuman = true;
+    public bool movementLocked = false;
     [SerializeField] private Transform cameraHome, computerScreenViewPoint;
 
 
@@ -29,7 +30,7 @@ public class FirstPersonCameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isHuman)
+        if (!movementLocked)
         {
             _xRot = Mathf.Clamp(_xRot, -80, 80);
             transform.localEulerAngles = new Vector3(-_xRot, 0, 0);
@@ -39,10 +40,12 @@ public class FirstPersonCameraController : MonoBehaviour
 
     public void HandleMouseInput(InputAction.CallbackContext context)
     {
-        Vector2 input = context.ReadValue<Vector2>();
-        _yRot += input.x * Sensitivity * Time.deltaTime;
-        _xRot += input.y * Sensitivity * Time.deltaTime;
-        //print($"{_xRot} {_yRot}");
+        if (!movementLocked)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            _yRot += input.x * Sensitivity * Time.deltaTime;
+            _xRot += input.y * Sensitivity * Time.deltaTime;
+        }
     }
 
     public void HandleInteractInput(InputAction.CallbackContext context)
@@ -52,12 +55,6 @@ public class FirstPersonCameraController : MonoBehaviour
             if (isHuman)
             {
                 StartCoroutine(moveToComputer());
-                // GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Computer");
-                // pointToReturnTo = transform;
-                // transform.position = computerScreenViewPoint.position;
-                // transform.eulerAngles = computerScreenViewPoint.eulerAngles;
-                // print(transform.eulerAngles);
-                // print(computerScreenViewPoint.eulerAngles);
             }
             else
             {
@@ -76,12 +73,13 @@ public class FirstPersonCameraController : MonoBehaviour
     IEnumerator moveToComputer()
     {
         isHuman = false;
+        movementLocked = true;
         Vector3 startingPosition = transform.position;
         Vector3 startingRotation = transform.eulerAngles;
         print("awh shit here we go again");
         GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Computer");
         float timeMoving = 0;
-        float timeToMove = 2;
+        float timeToMove = 1;
         while(timeMoving < timeToMove)
         {
             float T = timeMoving / timeToMove;
@@ -106,27 +104,34 @@ public class FirstPersonCameraController : MonoBehaviour
 
     public IEnumerator returnToBody()
     {
-        float timeMoving = 0;
-        float timeToMove = 2;
+        isHuman = true;
+        Vector3 startingPosition = transform.position;
+        Vector3 startingRotation = transform.eulerAngles;
         GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Human");
+        float timeMoving = 0;
+        float timeToMove = 1;
         print($"wait for it {cameraHome.position} {transform.position}");
         while(timeMoving < timeToMove)
         {
-            transform.position = Vector3.Lerp(computerScreenViewPoint.position, cameraHome.position, timeMoving / timeToMove);
-            transform.eulerAngles = new Vector3(Mathf.LerpAngle(computerScreenViewPoint.eulerAngles.x, cameraHome.eulerAngles.x, timeMoving / timeToMove),
-                Mathf.LerpAngle(computerScreenViewPoint.eulerAngles.y, cameraHome.eulerAngles.y, timeMoving / timeToMove),
-                Mathf.LerpAngle(computerScreenViewPoint.eulerAngles.z, cameraHome.eulerAngles.z, timeMoving / timeToMove));
+            float T = timeMoving / timeToMove;
+            print($"A {T}  {Vector3.Lerp(startingPosition, cameraHome.position, T)}");
+            print($"B {Vector3.Lerp(startingPosition, cameraHome.position, 0.85f)}");
+            print($"C {cameraHome.position} {transform.position}");
+            transform.position = Vector3.Lerp(startingPosition, cameraHome.position, T);
+            transform.eulerAngles = new Vector3(Mathf.LerpAngle(startingRotation.x, cameraHome.eulerAngles.x, T),
+                Mathf.LerpAngle(startingRotation.y, cameraHome.eulerAngles.y, T),
+                Mathf.LerpAngle(startingRotation.z, cameraHome.eulerAngles.z, T));
             timeMoving += Time.deltaTime;
             
             if(!isHuman) yield break;
             yield return null;
             if(!isHuman) yield break;
         }
-        
+
+        movementLocked = false;
         print($"not yet {cameraHome.position} {transform.position}");
         transform.position = cameraHome.position;
         transform.eulerAngles = cameraHome.eulerAngles;
-        isHuman = true;
         print($"done {cameraHome.position} {transform.position}");
     }
 }

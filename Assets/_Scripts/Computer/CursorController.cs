@@ -5,15 +5,19 @@ using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CursorController : MonoBehaviour
 {
     public static CursorController Instance;
     private RectTransform _transform;
+    private bool isActive = true;
+    private Image sprite;
 
     private void Awake()
     {
         Instance = this;
+        sprite = GetComponent<Image>();
     }
 
     void Start()
@@ -21,9 +25,10 @@ public class CursorController : MonoBehaviour
         _transform = GetComponent<RectTransform>();
     }
 
-    void Update()
+    public void toggle()
     {
-        
+        isActive = !isActive;
+        sprite.enabled = isActive;
     }
 
     public void HandleCursorInput(InputAction.CallbackContext context)
@@ -42,6 +47,8 @@ public class CursorController : MonoBehaviour
 
     public void HandleClickInput(InputAction.CallbackContext context)
     {
+        if (!isActive) return;
+        
         if (context.started)
         {
             // print("click");

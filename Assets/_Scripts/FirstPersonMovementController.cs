@@ -25,7 +25,7 @@ public class FirstPersonMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (FirstPersonCameraController.Instance.isHuman)
+        if (!FirstPersonCameraController.Instance.movementLocked)
         {
             Transform camReference = cameraHome;
             camReference.eulerAngles = new Vector3(0, camReference.eulerAngles.y, camReference.eulerAngles.z);

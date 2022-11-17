@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 public class PlatformerPlayerController : MonoBehaviour
 {
     public static PlatformerPlayerController Instance;
+
+    public bool isPaused = false;
     
     CharacterController characterController;
     [SerializeField] Transform camTransform;
@@ -64,6 +66,8 @@ public class PlatformerPlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isPaused) return;
+        
         GroundedCheck();
         GravityAndJumpCal();
 

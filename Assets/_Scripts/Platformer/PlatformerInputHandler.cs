@@ -63,4 +63,13 @@ public class PlatformerInputHandler : MonoBehaviour
             purchaseController.InteractedPressed();
         }
     }
+
+    public void HandlePauseInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            movementController.isPaused = true;
+            WorldWideWeb.Instance.pauseGame();
+        }
+    }
 }
