@@ -141,7 +141,7 @@ public class PlatformerPlayerController : MonoBehaviour
             inputVector = cameraNormal.forward * yAxis + cameraNormal.right * xAxis;
         } else
         {
-            inputVector = Vector3.right* xAxis;
+            inputVector = cameraNormal.right * xAxis;
         }
         // Ground Movement
         if (isGrounded)

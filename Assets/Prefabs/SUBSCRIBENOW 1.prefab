@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 869175066108623458}
   - component: {fileID: 869175066108623459}
   - component: {fileID: 869175066108623460}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PurchaseArea
   m_TagString: InteractArea
   m_Icon: {fileID: 0}

@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8507087061550270221}
   - component: {fileID: 3002019977212710856}
   - component: {fileID: 114836596216576662}
+  - component: {fileID: 1854228314}
+  - component: {fileID: 1854228318}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -45,6 +47,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e937c23a46245f46b52cb0c96b0b6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  subBuild:
+  - ID: 0
+    isActive: 0
+    isUnlocked: 0
+    duration: 121
+    timeLeft: 0
+    cosmetic: {fileID: 0}
+  - ID: 1
+    isActive: 0
+    isUnlocked: 0
+    duration: 121
+    timeLeft: 0
+    cosmetic: {fileID: 0}
+  - ID: 2
+    isActive: 0
+    isUnlocked: 0
+    duration: 121
+    timeLeft: 0
+    cosmetic: {fileID: 0}
+  - ID: 3
+    isActive: 0
+    isUnlocked: 0
+    duration: 121
+    timeLeft: 0
+    cosmetic: {fileID: 0}
+  inputHandler: {fileID: 0}
+  canhaBucks: 100
+  kubaKoin: 100
+  _realMoney: 0
+  receipts: []
   yummyDonerMeat: 0
 --- !u!114 &114836596216576662
 MonoBehaviour:
@@ -105,8 +137,8 @@ MonoBehaviour:
     m_ActionName: Computer/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlatformerPlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1854228314}
+        m_TargetAssemblyTypeName: PlatformerInputHandler, Assembly-CSharp
         m_MethodName: HandleMovementInput
         m_Mode: 0
         m_Arguments:
@@ -121,9 +153,9 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CursorController, Assembly-CSharp
-        m_MethodName: HandleCursorInput
+      - m_Target: {fileID: 1854228314}
+        m_TargetAssemblyTypeName: PlatformerInputHandler, Assembly-CSharp
+        m_MethodName: HandleRotationInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -137,9 +169,9 @@ MonoBehaviour:
     m_ActionName: Player/Camera[/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CursorController, Assembly-CSharp
-        m_MethodName: HandleCursorInput
+      - m_Target: {fileID: 1854228314}
+        m_TargetAssemblyTypeName: PlatformerInputHandler, Assembly-CSharp
+        m_MethodName: HandleJumpInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -153,9 +185,9 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CursorController, Assembly-CSharp
-        m_MethodName: HandleCursorInput
+      - m_Target: {fileID: 1854228314}
+        m_TargetAssemblyTypeName: PlatformerInputHandler, Assembly-CSharp
+        m_MethodName: HandleSprintInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -235,8 +267,49 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5698ae05-c5b8-4e25-af10-1436d7e90168
     m_ActionName: Player/Zoom[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1854228314}
+        m_TargetAssemblyTypeName: PlatformerInputHandler, Assembly-CSharp
+        m_MethodName: HandleInteractInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b16353c7-627a-4987-9339-6823581e3c34
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Human
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1854228314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209839326574130760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac463ba32cc22f45a6f35e88cd51408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1854228318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209839326574130760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3df8e52a71e44428a63b0271295e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PurchasableItems: []

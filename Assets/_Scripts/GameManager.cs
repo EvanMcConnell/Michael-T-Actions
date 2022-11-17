@@ -42,8 +42,9 @@ public class GameManager : MonoBehaviour
 
         foreach (var sub in subBuild)
         {
-            subscriptionClasses.Add(sub.ID, new SubscriptionClass(sub.isActive, sub.isUnlocked, sub.duration, sub.timeLeft, sub.barTranform));
+            subscriptionClasses.Add(sub.ID, new SubscriptionClass(sub.isActive, sub.isUnlocked, sub.duration, sub.timeLeft, sub.cosmetic));
         }
+
     }
 
     [SerializeField] private int canhaBucks;
@@ -182,9 +183,10 @@ public class GameManager : MonoBehaviour
     public void SubScribe(SubscriptionID ID)
     {
         // is unlocked 
-        StartCoroutine(SubscribeToSprintCor(ID));
+        StartCoroutine(SubscribeCor(ID));
         ///REEE
-        FindObjectOfType<PlayersCosmeticsController>().ActivateCosmetic(ID);
+        ///
+        subscriptionClasses[ID].cosmetic.SetActive(true);
 
     }
 
@@ -212,7 +214,7 @@ public class GameManager : MonoBehaviour
         return 0;
     }
 
-    IEnumerator SubscribeToSprintCor(SubscriptionID ID)
+    IEnumerator SubscribeCor(SubscriptionID ID)
     {
         subscriptionClasses[ID].timeLeft = subscriptionClasses[ID].duration;
         subscriptionClasses[ID].isActive = true;
@@ -224,6 +226,8 @@ public class GameManager : MonoBehaviour
         }
 
         subscriptionClasses[ID].isActive = false;
+        subscriptionClasses[ID].cosmetic.SetActive(false);
+
     }
 
 }
@@ -239,14 +243,15 @@ public class SubscriptionClass
     [SerializeField] internal bool isUnlocked;
     [SerializeField] internal int duration = 120;
     [SerializeField] internal int timeLeft;
-    [SerializeField] internal Transform barTranform; 
+    [SerializeField] internal GameObject cosmetic; 
 
-    public SubscriptionClass(bool isActive, bool isUnlocked, int duration, int timeLeft, Transform barTranform)
+    public SubscriptionClass(bool isActive, bool isUnlocked, int duration, int timeLeft, GameObject cosmetic)
     {
         this.isActive = isActive;
         this.isUnlocked = isUnlocked;
         this.duration = duration;
         this.timeLeft = timeLeft;
+        this.cosmetic = cosmetic;
     }
 }
 
@@ -258,6 +263,6 @@ public class SubscriptionClassForMakingOnly
     [SerializeField] internal bool isUnlocked;
     [SerializeField] internal int duration = 120;
     [SerializeField] internal int timeLeft;
-    [SerializeField] internal Transform barTranform;
+    [SerializeField] internal GameObject cosmetic;
 
 }
