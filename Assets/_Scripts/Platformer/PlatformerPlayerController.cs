@@ -7,6 +7,7 @@ public class PlatformerPlayerController : MonoBehaviour
 {
     public static PlatformerPlayerController Instance;
 
+    [HideInInspector]
     public bool isPaused = false;
     
     CharacterController characterController;
@@ -29,6 +30,9 @@ public class PlatformerPlayerController : MonoBehaviour
     [SerializeField] private float groundColliderCheckSize = 0.4f;
     [SerializeField] private float coyoteTime = 0.4f;
     float coyoteTimeLeft;
+
+    [Header("Effects")] 
+    [SerializeField] private ParticleSystem landingEffect;
 
     //Axis Input
     private float xAxis;
@@ -175,6 +179,8 @@ public class PlatformerPlayerController : MonoBehaviour
 
         if (Physics.CheckSphere(groundCheckPivot.position, groundColliderCheckSize, groundMask))
         {
+            if(isGrounded == false) landingEffect.Play();
+            
             isGrounded = true;
             coyoteTimeLeft = coyoteTime;
         }
@@ -252,6 +258,7 @@ public class PlatformerPlayerController : MonoBehaviour
         }
         else if (!DidAirJump)
         {
+            landingEffect.Play();
             isAirJump = true;
             DidAirJump = true;
         }

@@ -99,7 +99,7 @@ public class WorldWideWeb : MonoBehaviour
         }
 
         pauseGameOverlay.SetActive(false);
-        CursorController.Instance.toggle();
+        //CursorController.Instance.toggle();
         GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
         try

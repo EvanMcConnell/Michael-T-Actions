@@ -18,6 +18,7 @@ public class CursorController : MonoBehaviour
     {
         Instance = this;
         sprite = GetComponent<Image>();
+        toggle();
     }
 
     void Start()
