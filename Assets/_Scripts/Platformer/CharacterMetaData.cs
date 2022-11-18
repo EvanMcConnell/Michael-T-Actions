@@ -18,13 +18,20 @@ public class CharacterMetaData : MonoBehaviour
     [Header("Weezer ‍웃웃웃웃")]
     [SerializeField] DialogueMetaData DialogueMetaData;
 
+    internal Camera camera;
+
     private void Start()
     {
+
+        DialogueBox.GetComponent<Canvas>().worldCamera = PlatfromerCameraController.Instance.GetComponentInChildren<Camera>();
         dialogueText.SetText(DialogueMetaData.Dialogue);
 
         portrait.sprite = DialogueMetaData.profileImage;
-        CharacterSpriteRenderer.sprite = DialogueMetaData.CharacterImage;
-        // Name (coming soon)
+        if (CharacterSpriteRenderer != null)
+        {
+            CharacterSpriteRenderer.sprite = DialogueMetaData.CharacterImage;
+        }
+        // Name (coming soon (never))
 
         DialogueBox.SetActive(false);
     }

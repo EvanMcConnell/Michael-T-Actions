@@ -5,10 +5,11 @@ using UnityEngine.Events;
 public class PurchaseArea : MonoBehaviour
 {
     [SerializeField] public string displayName;
-    [SerializeField] private int cost;
-    [SerializeField] Currency currency;
+    [SerializeField] internal int cost;
+    [SerializeField] internal Currency currency;
     [SerializeField] UnityEvent purchaseEvent;
     internal bool purchased = false;
+    [SerializeField] internal bool infinite = false;
 
     public bool TryPurchase()
     {
@@ -16,7 +17,7 @@ public class PurchaseArea : MonoBehaviour
         {
             purchaseEvent.Invoke();
 
-            if (TryGetComponent(out CharacterMetaData data))
+            if (TryGetComponent(out CharacterMetaData data) && !infinite)
             {
                 data.SetDialogue(false);
             }

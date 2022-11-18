@@ -229,7 +229,6 @@ public class GameManager : MonoBehaviour
         subscriptionClasses[ID].cosmetic.SetActive(false);
 
     }
-
 }
 
 /// Classes

@@ -29,7 +29,7 @@ public class PlayerPurchaseController : MonoBehaviour
                 if (!purchaseArea.purchased)
                 {
                     PurchasePrompt.SetActive(true);
-                    PurchasePrompt.GetComponent<TextMeshPro>().SetText($"{purchaseArea.displayName}\ne to purchase");
+                    PurchasePrompt.GetComponent<TextMeshPro>().SetText($"{purchaseArea.displayName}\n{purchaseArea.cost} {purchaseArea.currency.ToString()}\ne to purchase");
                     inPurchaseArea = true;
                     purchaseAreaCollider = other;
                 }
@@ -100,7 +100,11 @@ public class PlayerPurchaseController : MonoBehaviour
                     inPurchaseArea = false;
                     purchaseAreaCollider = null;
                     PurchasePrompt.SetActive(false);
-                    pA.purchased = true;
+
+                    if (!pA.infinite)
+                    {
+                        pA.purchased = true;
+                    }
 
 
                 }
