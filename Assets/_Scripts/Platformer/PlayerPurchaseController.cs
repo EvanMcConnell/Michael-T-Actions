@@ -54,7 +54,17 @@ public class PlayerPurchaseController : MonoBehaviour
             }
 
         }
+
+        if (other.CompareTag("Button"))
+        {
+            if (other.transform.TryGetComponent(out buttonController buttonController))
+            {
+                buttonController.ButtonDown();
+            }
+        }
     }
+
+    
 
     IEnumerator TeleportSlowly(Vector3 point)
     {
@@ -83,6 +93,14 @@ public class PlayerPurchaseController : MonoBehaviour
             {
                 canvasOccupied = false;
                 data.DeactivateDialogueBox();
+            }
+        }
+
+        if (other.CompareTag("Button"))
+        {
+            if (other.transform.TryGetComponent(out buttonController buttonController))
+            {
+                buttonController.ButtonUp();
             }
         }
     }
