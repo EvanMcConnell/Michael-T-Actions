@@ -9,10 +9,8 @@ public class CameraPicker : MonoBehaviour
     
     void Start()
     {
-        print("maybe");
         if (Jack.corporealForm != null)
         {
-            print("nah");
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
 

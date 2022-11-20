@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlatformerPlayerController : MonoBehaviour
 {
@@ -25,6 +29,7 @@ public class PlatformerPlayerController : MonoBehaviour
     [SerializeField] private float jumpStrength = .3f;
     [SerializeField] private Transform groundCheckPivot;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask movingPlatformMask;
 
     [Header("Forgiveness")]
     [SerializeField] private float groundColliderCheckSize = 0.4f;
@@ -33,6 +38,7 @@ public class PlatformerPlayerController : MonoBehaviour
 
     [Header("Effects")] 
     [SerializeField] private ParticleSystem landingEffect;
+    [SerializeField] private ParticleSystem walkingEffect;
 
     //Axis Input
     private float xAxis;
@@ -41,6 +47,7 @@ public class PlatformerPlayerController : MonoBehaviour
     //Checks 
     private bool isSprinting = false;
     private bool isGrounded = false;
+    private bool isOnMover = false;
 
     private bool isJumping = false;
     private bool isAirJump = false;
@@ -54,6 +61,8 @@ public class PlatformerPlayerController : MonoBehaviour
     Vector3 inputVector;
 
     float actualSpeed;
+    
+    List<ConstraintSource> emptyConstraintList = new();
 
     private void Awake()
     {
@@ -67,6 +76,20 @@ public class PlatformerPlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
+    private void Update()
+    {
+        if ((xAxis != 0 || yAxis != 0) && isGrounded)
+        {
+            print("dusty");
+            walkingEffect.Play();
+        }
+        else
+        {
+            walkingEffect.Stop();
+        }
+        
+        print($"{walkingEffect.isEmitting} {walkingEffect.isPlaying}");
+    }
 
     void FixedUpdate()
     {
@@ -175,7 +198,7 @@ public class PlatformerPlayerController : MonoBehaviour
     /// </summary>
     public void GroundedCheck()
     {
-        Physics.CheckSphere(groundCheckPivot.position, groundColliderCheckSize, groundMask);
+        //if(Physics.CheckSphere(groundCheckPivot.position, groundColliderCheckSize, movingPlatformMask));
 
         if (Physics.CheckSphere(groundCheckPivot.position, groundColliderCheckSize, groundMask))
         {
@@ -183,6 +206,12 @@ public class PlatformerPlayerController : MonoBehaviour
             
             isGrounded = true;
             coyoteTimeLeft = coyoteTime;
+            
+            if(Physics.Raycast(groundCheckPivot.position, -transform.up, out RaycastHit info, groundColliderCheckSize, movingPlatformMask))
+            {
+                isOnMover = true;
+                characterController.Move(info.transform.GetComponent<Rigidbody>().velocity * Time.deltaTime);
+            }
         }
         else
         {
@@ -282,67 +311,10 @@ public class PlatformerPlayerController : MonoBehaviour
         WeWalkin();
     }
 
-
-    /// INPUT HANDLERS
-
-
-    // public void HandleMovementInput(InputAction.CallbackContext context)
-    // {
-    //     Vector2 inputMovement = context.ReadValue<Vector2>();
-    //     xAxis = inputMovement.x;
-    //     yAxis = inputMovement.y;
-    //
-    //     if (context.started) WeWalkin();
-    //
-    //     if (context.canceled) WeWalkin();
-    //
-    // }
-    //
-    //
-    //
-    // public void HandleJumpInput(InputAction.CallbackContext context)
-    // {
-    //     if (context.performed)
-    //     {
-    //         if (isGrounded)
-    //         {
-    //             DidAirJump = false;
-    //             isJumping = true;
-    //         }
-    //         else if (!DidAirJump)
-    //         {
-    //             isAirJump = true;
-    //             DidAirJump = true;
-    //         }
-    //
-    //     }
-    //
-    //     if (context.canceled)
-    //     {
-    //         isJumping = false;
-    //         isAirJump = false;
-    //     }
-    // }
-    //
-    // public void HandleSprint(InputAction.CallbackContext context)
-    // {
-    //     if (context.started)
-    //     {
-    //         isSprinting = true;
-    //         WeWalkin();
-    //     }
-    //
-    //     if (context.canceled)
-    //     {
-    //         isSprinting = false;
-    //         WeWalkin();
-    //     }
-    // }
-
     /// GIZMOS
 
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawSphere(groundCheckPivot.position, groundColliderCheckSize);
+        Gizmos.DrawWireSphere(groundCheckPivot.position, groundColliderCheckSize);
     }
 }
