@@ -12,5 +12,5 @@ public class DialogueMetaData : ScriptableObject
 
     public Sprite profileImage;
     public Sprite CharacterImage;
-    public AudioClip introAudio;
+    public AudioClip audio;
 }

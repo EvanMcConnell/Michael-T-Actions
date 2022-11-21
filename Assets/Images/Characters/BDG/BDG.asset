@@ -17,3 +17,4 @@ MonoBehaviour:
   DialogueSad: POOR, YOU ARE POOR
   profileImage: {fileID: 21300000, guid: 5665883cd8fdfab45b41d5be7ae49213, type: 3}
   CharacterImage: {fileID: 21300000, guid: 1d8033e5ab74b8a4f81ed21d4b5ccce5, type: 3}
+  audio: {fileID: 8300000, guid: 4d7361488e327a544a7ac47335891985, type: 3}

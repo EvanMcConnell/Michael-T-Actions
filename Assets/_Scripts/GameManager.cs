@@ -214,6 +214,15 @@ public class GameManager : MonoBehaviour
         return 0;
     }
 
+    public void removeAllSubs()
+    {
+        foreach (var sub in subscriptionClasses.Values)
+        {
+            sub.isActive = false;
+            sub.timeLeft = 0;
+        }
+    }
+
     IEnumerator SubscribeCor(SubscriptionID ID)
     {
         subscriptionClasses[ID].timeLeft = subscriptionClasses[ID].duration;

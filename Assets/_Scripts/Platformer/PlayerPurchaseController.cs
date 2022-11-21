@@ -21,6 +21,7 @@ public class PlayerPurchaseController : MonoBehaviour
             {
                 canvasOccupied = true;
                 Cdata.ActivateDialogueBox();
+                Cdata.SetDialogueDefault();
             }
 
             //If Purchaseable
@@ -28,10 +29,12 @@ public class PlayerPurchaseController : MonoBehaviour
             {
                 if (!purchaseArea.purchased)
                 {
+                    
                     PurchasePrompt.SetActive(true);
                     PurchasePrompt.GetComponent<TextMeshPro>().SetText($"{purchaseArea.displayName}\n{purchaseArea.cost} {purchaseArea.currency.ToString()}\ne to purchase");
                     inPurchaseArea = true;
                     purchaseAreaCollider = other;
+                    
                 }
             }
         }
@@ -60,6 +63,14 @@ public class PlayerPurchaseController : MonoBehaviour
             if (other.transform.TryGetComponent(out buttonController buttonController))
             {
                 buttonController.ButtonDown();
+            }
+        }
+
+        if (other.CompareTag("EventTrigger"))
+        {
+            if (other.transform.TryGetComponent(out EventTriggerArea eventTriggerArea))
+            {
+                eventTriggerArea.TriggerEvent();
             }
         }
     }
@@ -139,6 +150,12 @@ public class PlayerPurchaseController : MonoBehaviour
         else
         {
             Debug.Log("Not in purchaseArea or not in collider area");
+        }
+
+        PopUpController popup = (PopUpController)FindObjectOfType(typeof(PopUpController));
+        if (popup)
+        {
+            popup.InteractWithPopUp();
         }
     }
 }

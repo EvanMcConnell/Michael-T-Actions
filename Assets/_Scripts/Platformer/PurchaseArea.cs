@@ -17,7 +17,7 @@ public class PurchaseArea : MonoBehaviour
         {
             purchaseEvent.Invoke();
 
-            if (TryGetComponent(out CharacterMetaData data) && !infinite)
+            if (TryGetComponent(out CharacterMetaData data))
             {
                 data.SetDialogue(false);
             }

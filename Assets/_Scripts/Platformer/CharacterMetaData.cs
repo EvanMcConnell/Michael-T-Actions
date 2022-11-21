@@ -18,13 +18,14 @@ public class CharacterMetaData : MonoBehaviour
     [Header("Weezer ‍웃웃웃웃")]
     [SerializeField] DialogueMetaData DialogueMetaData;
 
-    internal Camera camera;
+    AudioSource audioSource;
 
     private void Start()
     {
 
         DialogueBox.GetComponent<Canvas>().worldCamera = PlatfromerCameraController.Instance.GetComponentInChildren<Camera>();
         dialogueText.SetText(DialogueMetaData.Dialogue);
+        audioSource = GetComponent<AudioSource>();
 
         portrait.sprite = DialogueMetaData.profileImage;
         if (CharacterSpriteRenderer != null)
@@ -38,6 +39,10 @@ public class CharacterMetaData : MonoBehaviour
     internal void ActivateDialogueBox()
     {
         DialogueBox.SetActive(true);
+
+        audioSource.pitch = 1;
+        audioSource.PlayOneShot(DialogueMetaData.audio);
+        
     }
 
     internal void DeactivateDialogueBox()
@@ -54,10 +59,19 @@ public class CharacterMetaData : MonoBehaviour
         if (!poor)
         {
             dialogueText.SetText(DialogueMetaData.DialogueHappy);
+            audioSource.pitch = 1.2f;
+            audioSource.PlayOneShot(DialogueMetaData.audio);
         }
         else
         {
             dialogueText.SetText(DialogueMetaData.DialogueSad);
+            audioSource.pitch = 0.8f;
+            audioSource.PlayOneShot(DialogueMetaData.audio);
         }
+    }
+
+    internal void SetDialogueDefault()
+    {
+        dialogueText.SetText(DialogueMetaData.Dialogue);
     }
 }

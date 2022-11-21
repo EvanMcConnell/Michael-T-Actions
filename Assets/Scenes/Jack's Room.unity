@@ -17427,6 +17427,18 @@ PrefabInstance:
       propertyPath: receipts.Array.data[2].Balance
       value: 40
       objectReference: {fileID: 0}
+    - target: {fileID: 3002019977212710856, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: subBuild.Array.data[0].isActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002019977212710856, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: subBuild.Array.data[1].isActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002019977212710856, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: subBuild.Array.data[2].isActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8507087061550270221, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_RootOrder
       value: 6

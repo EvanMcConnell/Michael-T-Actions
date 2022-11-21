@@ -8,6 +8,7 @@ TagManager:
   - InteractArea
   - PlayerCatcher
   - Button
+  - EventTrigger
   layers:
   - Default
   - TransparentFX

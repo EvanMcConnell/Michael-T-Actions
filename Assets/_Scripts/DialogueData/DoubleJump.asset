@@ -17,4 +17,4 @@ MonoBehaviour:
   DialogueSad: Not Enough Cash
   profileImage: {fileID: -676572846, guid: 7c4402d2a8e44a847bca90a375b2abcb, type: 3}
   CharacterImage: {fileID: -676572846, guid: 7c4402d2a8e44a847bca90a375b2abcb, type: 3}
-  introAudio: {fileID: 0}
+  audio: {fileID: 8300000, guid: 2bf53a314665fad40b980d974712c288, type: 3}
