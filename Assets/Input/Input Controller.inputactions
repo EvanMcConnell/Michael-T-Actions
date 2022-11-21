@@ -59,7 +59,7 @@
                 {
                     "name": "",
                     "id": "e9a1bc58-1e80-417d-b20d-13127a818fd1",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -251,7 +251,7 @@
                 {
                     "name": "",
                     "id": "30ea77f3-2475-44d6-bca9-00a4c97a7dcf",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -372,6 +372,12 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Intro",
+            "id": "57265c3c-833f-48e7-a57e-968925c1bd6a",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []

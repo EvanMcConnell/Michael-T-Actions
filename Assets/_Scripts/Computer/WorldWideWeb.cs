@@ -99,7 +99,7 @@ public class WorldWideWeb : MonoBehaviour
         }
 
         pauseGameOverlay.SetActive(false);
-        //CursorController.Instance.toggle();
+        CursorController.Instance.toggle(false);
         GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
 
         try
@@ -120,7 +120,7 @@ public class WorldWideWeb : MonoBehaviour
     public void pauseGame()
     {
         pauseGameOverlay.SetActive(true);
-        CursorController.Instance.toggle();
+        CursorController.Instance.toggle(true);
         GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Computer");
     }
 }

@@ -18,22 +18,21 @@ public class CursorController : MonoBehaviour
     {
         Instance = this;
         sprite = GetComponent<Image>();
-        toggle();
-    }
-
-    void Start()
-    {
         _transform = GetComponent<RectTransform>();
+        toggle(false);
     }
 
-    public void toggle()
+    public void toggle(bool turnOn)
     {
-        isActive = !isActive;
+        _transform.anchoredPosition = new Vector3(320, 240);
+        isActive = turnOn;
         sprite.enabled = isActive;
     }
 
     public void HandleCursorInput(InputAction.CallbackContext context)
     {
+        if (!isActive) return;
+        
         if (context.started)
         {
             Vector2 delta = context.ReadValue<Vector2>();

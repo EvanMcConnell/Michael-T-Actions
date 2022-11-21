@@ -7279,6 +7279,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 240
       objectReference: {fileID: 0}
+    - target: {fileID: 7043186125251145022, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7043186125419349462, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -8501,7 +8505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0e7ef4d1e008748be97912d821e54f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sensitivity: 50
+  Sensitivity: 5
   isHuman: 0
   movementLocked: 1
   cameraHome: {fileID: 296027583}
@@ -9393,7 +9397,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25106
+  m_Name: pb_Mesh27326
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15746,7 +15750,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2ab37b0a193582943ad651b5ec0c8234, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -17297,19 +17301,27 @@ PrefabInstance:
       objectReference: {fileID: -944628639613478452, guid: ab8195bb35160734b92660c5b9bb58b1, type: 3}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_DefaultActionMap
-      value: 88b03e1a-0ac8-4fe6-b8b4-41e80fb0d073
+      value: 57265c3c-833f-48e7-a57e-968925c1bd6a
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_ActionId
       value: 6eda11fe-3c00-4414-8772-2a5bbdca300f
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionId
+      value: 1f58d9b7-95f3-477c-ba45-ab64939d4f08
+      objectReference: {fileID: 0}
+    - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_ActionName
       value: Player/Pause[/Keyboard/escape]
+      objectReference: {fileID: 0}
+    - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionName
+      value: Intro/New action
       objectReference: {fileID: 0}
     - target: {fileID: 114836596216576662, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: m_ActionEvents.Array.data[12].m_PersistentCalls.m_Calls.Array.size
