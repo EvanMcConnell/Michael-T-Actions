@@ -10,6 +10,11 @@ public class buttonController : MonoBehaviour
     [SerializeField] UnityEvent ButtonResetEvent;
     [SerializeField] int timerSeconds = 5;
 
+    private void Start()
+    {
+        ButtonResetEvent.Invoke();
+    }
+
     internal void ButtonDown()
     {
         animator.Play("ButtonDown");

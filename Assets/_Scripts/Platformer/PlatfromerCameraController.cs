@@ -12,7 +12,8 @@ public class PlatfromerCameraController : MonoBehaviour
     private float yRot;
     private float yScroll;
 
-    private float cameraUpDownSpeed = 5f;
+    [SerializeField] private float sensitivitY = 2f;
+    [SerializeField] private float sensitivitX = 4f;
 
     [SerializeField] Transform FollowPos;
     
@@ -29,9 +30,9 @@ public class PlatfromerCameraController : MonoBehaviour
     {
 
         transform.position = FollowPos.position;
-
+        xRot = Mathf.Clamp(xRot, -20, 77);
         // Camera Up and Down
-        transform.localRotation = Quaternion.Euler(Mathf.Clamp(xRot * Time.deltaTime, -20, 75), yRot* Time.deltaTime, 0f);
+        transform.localEulerAngles = new Vector3(xRot, yRot, 0f);
         
         //TODO:
         //add limits axis to rot;
@@ -40,8 +41,8 @@ public class PlatfromerCameraController : MonoBehaviour
 
     public void addRoationInput(float x, float y)
     {
-        xRot += y;
-        yRot += x;
+        xRot += y * Time.deltaTime * sensitivitY;
+        yRot += x * Time.deltaTime * sensitivitX;
     }
 
     // public void HandleRotationInput(InputAction.CallbackContext context)
