@@ -12,6 +12,7 @@ public class PlayerPurchaseController : MonoBehaviour
 
     bool canvasOccupied = false;
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("InteractArea") )

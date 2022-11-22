@@ -11,6 +11,8 @@ public class PurchaseArea : MonoBehaviour
     internal bool purchased = false;
     [SerializeField] internal bool infinite = false;
 
+    [SerializeField] private AudioClip purchaseSound;
+
     public bool TryPurchase()
     {
         if (GameManager.Instance.PurchaseWithCurrency(currency, cost, displayName))
@@ -21,6 +23,14 @@ public class PurchaseArea : MonoBehaviour
             {
                 data.SetDialogue(false);
             }
+
+            if (TryGetComponent(out AudioSource purchaseAudio))
+            {
+                purchaseAudio.pitch = 1f;
+
+                purchaseAudio.PlayOneShot(purchaseSound);
+            }
+
             return true;
         } 
         else
@@ -29,6 +39,13 @@ public class PurchaseArea : MonoBehaviour
             {
                 data.SetDialogue(true);
             }
+
+            if (TryGetComponent(out AudioSource purchaseAudio))
+            {
+                purchaseAudio.pitch = .5f;
+                purchaseAudio.PlayOneShot(purchaseSound);
+            }
+
             return false;
         }
     }
