@@ -8,5 +8,10 @@ public class UnlockSub : MonoBehaviour
     public void UnlockSubCall()
     {
         GameManager.Instance.UnlockSub(subscriptionID);
+
+        foreach (SubsriptionPurchase sub in FindObjectsOfType<SubsriptionPurchase>())
+        {
+            sub.Unlock(subscriptionID);
+        }
     }
 }
