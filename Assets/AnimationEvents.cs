@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class AnimationEvents : MonoBehaviour
 {
-    public void PlayAudioClipOneShot(AudioClip audio) => GetComponent<AudioSource>().PlayOneShot(audio);
+    public void AnimEvent_DisableObject() => gameObject.SetActive(false);
+    
+    public void AnimEvent_PlayAudioClipOneShot(AudioClip audio) => GetComponent<AudioSource>().PlayOneShot(audio);
 }
