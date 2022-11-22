@@ -179,7 +179,12 @@ public class GameManager : MonoBehaviour
         return subscriptionClasses[ID].isUnlocked;
     }
 
- 
+    public void UnlockSub(SubscriptionID ID)
+    {
+        subscriptionClasses[ID].isUnlocked = true;
+    }
+
+
     public void SubScribe(SubscriptionID ID)
     {
         // is unlocked 
