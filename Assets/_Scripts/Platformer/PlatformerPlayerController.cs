@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
-using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public class PlatformerPlayerController : MonoBehaviour
 {
@@ -39,6 +36,9 @@ public class PlatformerPlayerController : MonoBehaviour
     [Header("Effects")] 
     [SerializeField] private ParticleSystem landingEffect;
     [SerializeField] private ParticleSystem walkingEffect;
+
+    [SerializeField] private CharacterSFX soundEffects;
+    [SerializeField] private AudioSource audioSrc;
 
     //Axis Input
     private float xAxis;
@@ -202,7 +202,11 @@ public class PlatformerPlayerController : MonoBehaviour
 
         if (Physics.CheckSphere(groundCheckPivot.position, groundColliderCheckSize, groundMask))
         {
-            if(isGrounded == false) landingEffect.Play();
+            if (isGrounded == false)
+            {
+                landingEffect.Play();
+                audioSrc.PlayOneShot(soundEffects.Land);
+            }
             
             isGrounded = true;
             coyoteTimeLeft = coyoteTime;
@@ -282,11 +286,13 @@ public class PlatformerPlayerController : MonoBehaviour
     {
         if (isGrounded)
         {
+            audioSrc.PlayOneShot(soundEffects.Jump);
             DidAirJump = false;
             isJumping = true;
         }
         else if (!DidAirJump)
         {
+            audioSrc.PlayOneShot(soundEffects.AirJump);
             landingEffect.Play();
             isAirJump = true;
             DidAirJump = true;
@@ -317,4 +323,12 @@ public class PlatformerPlayerController : MonoBehaviour
     {
         Gizmos.DrawWireSphere(groundCheckPivot.position, groundColliderCheckSize);
     }
+}
+
+[Serializable]
+class CharacterSFX
+{
+    public AudioClip Jump;
+    public AudioClip AirJump;
+    public AudioClip Land;
 }
