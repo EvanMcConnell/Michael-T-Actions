@@ -36,4 +36,9 @@ public class MovingPlatform : MonoBehaviour
     }
 
     public Vector3 velocity() => rb.velocity;
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawLine(start.position, end.position, Color.green, 2, false);
+    }
 }

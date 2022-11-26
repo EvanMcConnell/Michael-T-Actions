@@ -24,6 +24,7 @@ public class PlatformerPlayerController : MonoBehaviour
     [Header("Gravity")]
     [SerializeField] public float gravity = -9.81f;
     [SerializeField] private float jumpStrength = .3f;
+    float jumpStrengthOriginal;
     [SerializeField] private Transform groundCheckPivot;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask movingPlatformMask;
@@ -66,6 +67,7 @@ public class PlatformerPlayerController : MonoBehaviour
 
     private void Awake()
     {
+        jumpStrengthOriginal = jumpStrength;
         Instance = this;
     }
 
@@ -305,13 +307,12 @@ public class PlatformerPlayerController : MonoBehaviour
     {
         audioSrc.PlayOneShot(soundEffects.Jump);
         DidAirJump = false;
-        float defaultForce = jumpStrength;
 
         jumpStrength = strength;
         isJumping = true;
 
         yield return new WaitForSeconds(.1f);
-        jumpStrength = defaultForce;
+        jumpStrength = jumpStrengthOriginal;
     }
 
     public void OnJumpReleased()

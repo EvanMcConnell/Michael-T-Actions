@@ -1728,7 +1728,7 @@ GameObject:
   - component: {fileID: 2982247342887855840}
   - component: {fileID: 2982247342887855842}
   - component: {fileID: 2982247342887855843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PayArea
   m_TagString: InteractArea
   m_Icon: {fileID: 0}
