@@ -19,7 +19,7 @@ public class CursorController : MonoBehaviour
         Instance = this;
         sprite = GetComponent<Image>();
         _transform = GetComponent<RectTransform>();
-        toggle(false);
+        //toggle(false);
     }
 
     public void toggle(bool turnOn)
@@ -70,25 +70,25 @@ public class CursorController : MonoBehaviour
                         parentRectTransform.anchoredPosition.y * -1 + grandParentRectTransform.anchoredPosition.y);
                 }
 
-                print($"{button.name} {buttonPosition} {button.transform.localPosition}");
+                //print($"{button.name} {buttonPosition} {button.transform.localPosition}");
                 if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2)){
-                    print("left: " + button.name);
+                    //print("left: " + button.name);
                     continue;
                 }
                 if (_transform.anchoredPosition.x > buttonPosition.x + (buttonRectTransform.rect.width/2)){
-                    print("right: " + button.name);
+                    //print("right: " + button.name);
                     continue;
                 }
                 
                 if (_transform.anchoredPosition.y < buttonPosition.y - (buttonRectTransform.rect.height/2))
                 {
-                    print("down: " + button.name);
+                    //print("down: " + button.name);
                     continue;
                 }
                 
                 if (_transform.anchoredPosition.y > buttonPosition.y + (buttonRectTransform.rect.height/2))
                 {
-                    print("up: " + button.name);
+                    //print("up: " + button.name);
                     continue;
                 }
 
@@ -100,7 +100,7 @@ public class CursorController : MonoBehaviour
                     continue;
                 }
                 
-                print("clicking: " + button.name);
+                //print("clicking: " + button.name);
                 button.OnPress.Invoke();
             }
         }

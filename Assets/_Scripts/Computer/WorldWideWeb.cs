@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
@@ -13,8 +14,14 @@ public class WorldWideWeb : MonoBehaviour
     
     private int Debt = 0;
 
-    [SerializeField] private TMPro.TextMeshProUGUI debtText, bankBalanceText, cashForCanhaBucks, convertedCanhaBucks, canhaBalanceText;
+    [SerializeField] private TMPro.TextMeshProUGUI debtText, bankBalanceText, canhaBalanceText, canhaScreenBankBalanceText;
     [SerializeField] private GameObject pauseGameOverlay;
+
+    private float bankPendingTimer;
+    private int bankPendingAmount;
+    private float canhaPendingTimer;
+    private int canhaPendingAmount;
+    [SerializeField] private GameObject canhaScreenPoorText;
     
     GameManager gm => GameManager.Instance;
 
@@ -27,67 +34,72 @@ public class WorldWideWeb : MonoBehaviour
     {
         debtText.text = Debt.ToString();
         bankBalanceText.text = gm.GetCurrency(Currency.realMoney).ToString();
+        canhaScreenBankBalanceText.text = gm.GetCurrency(Currency.realMoney).ToString();
         canhaBalanceText.text = gm.GetCurrency(Currency.canhaBucks).ToString();
-        cashForCanhaBucks.text = "0";
-        convertedCanhaBucks.text = "0";
+        
     }
 
-    public void GetLoan(int DebtIncurred)
+    public void GetLoan(int DebtIncurred) => StartCoroutine(BankReceiptBuffer());
+
+    IEnumerator BankReceiptBuffer()
     {
-        GameManager.Instance.PurchaseWithCurrency(Currency.realMoney, -100, "LOAn");
-        Debt += DebtIncurred;
+        bankPendingAmount += 100;
+        bankPendingTimer += 0.35f;
+        
+        Debt += 100;
         debtText.text = "-" + Debt;
-        bankBalanceText.text = gm.GetCurrency(Currency.realMoney).ToString();
-        BankTransactionHistoryManager._Instance.UpdateTransactionHistory();
+
+        yield return new WaitForSecondsRealtime(0.35f);
+        bankPendingTimer -= 0.35f;
+        bankPendingTimer = Mathf.Clamp(bankPendingTimer, 0, Mathf.Infinity);
+        print(bankPendingTimer);
+
+        if (bankPendingTimer == 0)
+        {
+            GameManager.Instance.PurchaseWithCurrency(Currency.realMoney, -bankPendingAmount, "LOAn");
+            bankBalanceText.text = gm.GetCurrency(Currency.realMoney).ToString();
+            canhaScreenBankBalanceText.text = gm.GetCurrency(Currency.realMoney).ToString();
+            BankTransactionHistoryManager._Instance.UpdateTransactionHistory();
+            bankPendingAmount = 0;
+        }
     }
 
     public void BuyCanhaBucks()
     {
-        int buckToBuy = int.Parse(convertedCanhaBucks.text);
-
-
-        if (gm.GetCurrency(Currency.realMoney) < buckToBuy * 10 || gm.GetCurrency(Currency.realMoney) == 0)
+        if (int.Parse(canhaScreenBankBalanceText.text) > 0)
         {
-            canhaBalanceText.text = "POOR";
-            return;
+            StartCoroutine(CanhaBucksReceiptBuffer());
+            canhaScreenPoorText.SetActive(false);
         }
-        
-        
-        convertedCanhaBucks.text = "0";
-        cashForCanhaBucks.text = "0";
-            
-        //gm.IncrementCurrency(Currency.canhaBucks, buckToBuy);
-        GameManager.Instance.PurchaseWithCurrency(Currency.canhaBucks, -buckToBuy, "Top Up");
-        canhaBalanceText.text = gm.GetCurrency(Currency.canhaBucks).ToString();
-        GameManager.Instance.PurchaseWithCurrency(Currency.realMoney, buckToBuy * 10, "Canha Bucks");
-        //gm.IncrementCurrency(Currency.realMoney, -buckToBuy * 10); 
-        bankBalanceText.text = gm.GetCurrency(Currency.realMoney).ToString();
-        
-        BankTransactionHistoryManager._Instance.UpdateTransactionHistory();
+        else
+        {
+            canhaScreenPoorText.SetActive(true);
+        }
     }
 
-    public void incrementCashForCanhaBucks()
+    IEnumerator CanhaBucksReceiptBuffer()
     {
-        int cash = int.Parse(cashForCanhaBucks.text);
-
-        cash += 100;
-
-        cashForCanhaBucks.text = cash.ToString();
-        convertedCanhaBucks.text = (cash / 10).ToString();
-        canhaBalanceText.text = gm.GetCurrency(Currency.canhaBucks).ToString();
-    }
-
-    public void decreaseCashForCanhaBucks()
-    {
-        int cash = int.Parse(cashForCanhaBucks.text);
-
-        if (cash <= 0) return;
-
-        cash -= 100;
+        canhaPendingAmount += 10;
+        canhaPendingTimer += 0.35f;
         
-        cashForCanhaBucks.text = cash.ToString();
-        convertedCanhaBucks.text = (cash / 10).ToString();
+        
+        GameManager.Instance.PurchaseWithCurrency(Currency.canhaBucks, -10, "Top Up");
         canhaBalanceText.text = gm.GetCurrency(Currency.canhaBucks).ToString();
+        
+        canhaScreenBankBalanceText.text = (int.Parse(canhaScreenBankBalanceText.text)-100).ToString();
+        
+        yield return new WaitForSecondsRealtime(0.35f);
+        canhaPendingTimer -= 0.35f;
+
+        
+        canhaPendingTimer = Mathf.Clamp(canhaPendingTimer, 0, Mathf.Infinity);
+        if (canhaPendingTimer == 0)
+        {
+            GameManager.Instance.PurchaseWithCurrency(Currency.realMoney, canhaPendingAmount * 10, "Canha Bucks");
+            bankBalanceText.text = gm.GetCurrency(Currency.realMoney).ToString();
+            BankTransactionHistoryManager._Instance.UpdateTransactionHistory();
+            canhaPendingAmount = 0;
+        }
     }
 
     public void StartGame()
