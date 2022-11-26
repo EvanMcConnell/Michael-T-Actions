@@ -299,6 +299,21 @@ public class PlatformerPlayerController : MonoBehaviour
         }
     }
 
+    public void HigherJump(float strength) => StartCoroutine(ResetJump(strength));
+
+    IEnumerator ResetJump(float strength)
+    {
+        audioSrc.PlayOneShot(soundEffects.Jump);
+        DidAirJump = false;
+        float defaultForce = jumpStrength;
+
+        jumpStrength = strength;
+        isJumping = true;
+
+        yield return new WaitForSeconds(.1f);
+        jumpStrength = defaultForce;
+    }
+
     public void OnJumpReleased()
     {
         isJumping = false;

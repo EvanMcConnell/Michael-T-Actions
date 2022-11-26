@@ -9,8 +9,12 @@ public class SubsriptionPurchase : MonoBehaviour
 
     private void Start()
     {
-        lockObject.SetActive(true);
-        GetComponent<BoxCollider>().enabled = false;
+
+        if (!GameManager.Instance.IsSubUnlocked(subscriptionID))
+        {
+            lockObject.SetActive(true);
+            GetComponent<BoxCollider>().enabled = false;
+        }
     }
     public void SubPurchase()
     {
