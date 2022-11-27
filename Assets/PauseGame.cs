@@ -6,6 +6,7 @@ public class PauseGame : MonoBehaviour
 {
     public void PauseGameCall()
     {
+        CanhaBucksInstaller.Instance.installCanha = true;
         WorldWideWeb.Instance.pauseGame();
     }
 

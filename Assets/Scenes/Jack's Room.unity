@@ -11308,6 +11308,25 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1222430953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7043186125458658717, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+  m_PrefabInstance: {fileID: 1189972835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1222430957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222430953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba2ed7d187213e448bca5b133f8ad73a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bucksButton: {fileID: 811507737}
+  installCanha: 0
 --- !u!114 &1225038750 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8025662609032569357, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
@@ -11775,18 +11794,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1420178586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420178569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba2ed7d187213e448bca5b133f8ad73a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1440915259 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7043186124004446974, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
@@ -21966,6 +21973,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3002019977212710856, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
       propertyPath: subBuild.Array.data[2].isActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002019977212710856, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: subBuild.Array.data[3].duration
+      value: 2900
+      objectReference: {fileID: 0}
+    - target: {fileID: 3002019977212710856, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
+      propertyPath: subBuild.Array.data[3].isUnlocked
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8507087061550270221, guid: 682c9ad2b72c4154f9c9a36a6ebecee9, type: 3}
