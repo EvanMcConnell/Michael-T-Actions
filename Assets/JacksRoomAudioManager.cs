@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class JacksRoomAudioManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static JacksRoomAudioManager Instance;
+    [SerializeField] private AudioLowPassFilter rain;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private void Awake() => Instance = this;
+
+    // private void OnEnable() => ON();
+    //
+    // private void OnDisable() => OFF();
+
+    public void OFF() => rain.enabled = false;
+    
+    public void ON() => rain.enabled = true;
 }

@@ -13,6 +13,7 @@ public class FirstPersonCameraController : MonoBehaviour
     public bool isHuman = true;
     public bool movementLocked = false;
     [SerializeField] private Transform cameraHome, computerScreenViewPoint;
+    [SerializeField] private GameObject ComputerScreen;
 
 
     private void Awake()
@@ -76,8 +77,8 @@ public class FirstPersonCameraController : MonoBehaviour
         movementLocked = true;
         Vector3 startingPosition = transform.position;
         Vector3 startingRotation = transform.eulerAngles;
-        print("awh shit here we go again");
-        GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Computer");
+        //print("awh shit here we go again");
+        GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Intro");
         float timeMoving = 0;
         float timeToMove = 1;
         while(timeMoving < timeToMove)
@@ -99,11 +100,26 @@ public class FirstPersonCameraController : MonoBehaviour
 
         transform.position = computerScreenViewPoint.position;
         transform.eulerAngles = computerScreenViewPoint.eulerAngles;
-        print("done");
+
+
+        if (!ComputerScreen.activeInHierarchy)
+        {
+            //print("we gotta turn on the compooter baws");
+            ComputerScreen.SetActive(true);
+        }
+        else
+        {
+            //print("we got a compooter 'ere baws");
+            GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Computer");
+        }
+        
+        JacksRoomAudioManager.Instance.ON();
     }
 
     public IEnumerator returnToBody()
     {
+        JacksRoomAudioManager.Instance.OFF();
+        
         isHuman = true;
         Vector3 startingPosition = transform.position;
         Vector3 startingRotation = transform.eulerAngles;

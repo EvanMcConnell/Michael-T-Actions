@@ -31,7 +31,13 @@ public class FirstPersonMovementController : MonoBehaviour
             camReference.eulerAngles = new Vector3(0, camReference.eulerAngles.y, camReference.eulerAngles.z);
             rb.velocity = (camReference.right * movement.x + camReference.forward * movement.y) * walkSpeed;
         }
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
+    
+    
 
     public void HandleMovementInput(InputAction.CallbackContext context)
     {

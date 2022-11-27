@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Collections.Generic;using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using UnityEngine;
 
@@ -247,6 +247,8 @@ public class GameManager : MonoBehaviour
 /// Classes
 public enum Currency { realMoney, kubaKoin, canhaBucks }
 public enum SubscriptionID { sprint, doubleJump, zAxis, bed }
+
+public enum InputMaps {Human, Player, Computer, Intro}
 
 [System.Serializable]
 public class SubscriptionClass

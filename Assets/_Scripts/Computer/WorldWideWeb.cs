@@ -85,7 +85,7 @@ public class WorldWideWeb : MonoBehaviour
         
         GameManager.Instance.PurchaseWithCurrency(Currency.canhaBucks, -10, "Top Up");
         canhaBalanceText.text = gm.GetCurrency(Currency.canhaBucks).ToString();
-        
+         
         canhaScreenBankBalanceText.text = (int.Parse(canhaScreenBankBalanceText.text)-100).ToString();
         
         yield return new WaitForSecondsRealtime(0.35f);

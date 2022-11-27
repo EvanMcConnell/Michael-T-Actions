@@ -13,6 +13,7 @@ public class CursorController : MonoBehaviour
     private RectTransform _transform;
     private bool isActive = true;
     private Image sprite;
+    [SerializeField] private OnEnableSoundSpurt booper;
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class CursorController : MonoBehaviour
         
         if (context.started)
         {
-            // print("click");
+            //print("click");
             foreach (ComputerButton button in transform.parent.GetComponentsInChildren<ComputerButton>())
             {
                 RectTransform buttonRectTransform = button.GetComponent<RectTransform>();
@@ -71,7 +72,7 @@ public class CursorController : MonoBehaviour
                 }
 
                 //print($"{button.name} {buttonPosition} {button.transform.localPosition}");
-                if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2)){
+                if (_transform.anchoredPosition.x < buttonPosition.x - (buttonRectTransform.rect.width/2)){ 
                     //print("left: " + button.name);
                     continue;
                 }
@@ -101,6 +102,7 @@ public class CursorController : MonoBehaviour
                 }
                 
                 //print("clicking: " + button.name);
+                booper.DoItAgain();
                 button.OnPress.Invoke();
             }
         }
