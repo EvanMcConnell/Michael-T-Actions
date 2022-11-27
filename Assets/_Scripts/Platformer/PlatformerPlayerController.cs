@@ -99,11 +99,7 @@ public class PlatformerPlayerController : MonoBehaviour
         
         GroundedCheck();
         GravityAndJumpCal();
-
-        
-            MovementCal();
-        
-        
+        MovementCal();
         AnimatorController();
     }
 
@@ -284,7 +280,7 @@ public class PlatformerPlayerController : MonoBehaviour
         xAxis = x;
         yAxis = y;
 
-        if (!GameManager.Instance.IsSubActive(SubscriptionID.zAxis) && y > 0)
+        if (!GameManager.Instance.IsSubActive(SubscriptionID.zAxis) && (y > 0 || y < 0))
         {
             audioSrc.PlayOneShot(soundEffects.ErrorSound);
         }
@@ -312,10 +308,11 @@ public class PlatformerPlayerController : MonoBehaviour
         }
     }
 
-    public void HigherJump(float strength) => StartCoroutine(ResetJump(strength));
+    public void HigherJump(float strength) => velocityVector.y = strength;
 
     IEnumerator ResetJump(float strength)
     {
+        
         audioSrc.PlayOneShot(soundEffects.Jump);
         DidAirJump = false;
 
