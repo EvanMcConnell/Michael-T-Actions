@@ -15,6 +15,6 @@ MonoBehaviour:
   Dialogue: Who are you
   DialogueHappy: WHO ARE YOU
   DialogueSad: WHO ARE YOU
-  profileImage: {fileID: 21300000, guid: e0dd350de103cd74da4841691e581f42, type: 3}
-  CharacterImage: {fileID: 21300000, guid: e0dd350de103cd74da4841691e581f42, type: 3}
-  audio: {fileID: 8300000, guid: 2bf53a314665fad40b980d974712c288, type: 3}
+  profileImage: {fileID: 21300000, guid: 840089c3736d1d24399efed5d476c4a5, type: 3}
+  CharacterImage: {fileID: 21300000, guid: 570ef80a70487df46ba0bbc2ff297001, type: 3}
+  audio: {fileID: 8300000, guid: 7b35318a90a5af84aa1a300f6d0eccfe, type: 3}
