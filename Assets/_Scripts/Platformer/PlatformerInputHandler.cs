@@ -32,6 +32,7 @@ public class PlatformerInputHandler : MonoBehaviour
     public void HandleMovementInput(InputAction.CallbackContext context)
     {
         Vector2 inputMovement = context.ReadValue<Vector2>();
+
         movementController.addMovementInput(inputMovement.x, inputMovement.y);
 
         if (context.started) movementController.WeWalkin();

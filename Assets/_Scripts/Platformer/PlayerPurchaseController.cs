@@ -6,13 +6,18 @@ using UnityEngine;
 public class PlayerPurchaseController : MonoBehaviour
 {
     [SerializeField] GameObject PurchasePrompt;
-    
+    [SerializeField] AudioClip coinNoise;
+    AudioSource coinAudioSource;
+
     private bool inPurchaseArea;
     Collider purchaseAreaCollider;
 
     bool canvasOccupied = false;
 
-
+    private void Start()
+    {
+        coinAudioSource = GetComponent<AudioSource>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("InteractArea") )
@@ -46,6 +51,7 @@ public class PlayerPurchaseController : MonoBehaviour
             {
                 coin.PickupCoin();
                 Destroy(other.gameObject);
+                coinAudioSource.PlayOneShot(coinNoise);
             }
         }
 

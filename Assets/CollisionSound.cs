@@ -16,7 +16,7 @@ public class CollisionSound : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"mag: {collision.relativeVelocity.magnitude}");
+        //Debug.Log($"mag: {collision.relativeVelocity.magnitude}");
         hitVol = collision.relativeVelocity.magnitude;
         AudioSource.pitch = Random.Range(lowPitch, highPitch);
         AudioSource.PlayOneShot(crashSound, hitVol);

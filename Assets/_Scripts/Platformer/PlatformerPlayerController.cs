@@ -241,8 +241,9 @@ public class PlatformerPlayerController : MonoBehaviour
         {
             if (isSprinting)
             {
-                if (GameManager.Instance.IsSubActive(SubscriptionID.sprint))
-                    StartCoroutine(ChangeSpeed(currentSpeed, sprintSpeed, .5f));
+
+                StartCoroutine(ChangeSpeed(currentSpeed, sprintSpeed, .5f));
+       
             }
             else
             {
@@ -282,6 +283,11 @@ public class PlatformerPlayerController : MonoBehaviour
     {
         xAxis = x;
         yAxis = y;
+
+        if (!GameManager.Instance.IsSubActive(SubscriptionID.zAxis) && y > 0)
+        {
+            audioSrc.PlayOneShot(soundEffects.ErrorSound);
+        }
     }
     
     public void OnJumpPressed()
@@ -298,6 +304,11 @@ public class PlatformerPlayerController : MonoBehaviour
             landingEffect.Play();
             isAirJump = true;
             DidAirJump = true;
+
+            if (!GameManager.Instance.IsSubActive(SubscriptionID.doubleJump))
+            {
+                audioSrc.PlayOneShot(soundEffects.ErrorSound);
+            }
         }
     }
 
@@ -313,6 +324,9 @@ public class PlatformerPlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(.1f);
         jumpStrength = jumpStrengthOriginal;
+        yield return new WaitForSeconds(.1f);
+        jumpStrength = jumpStrengthOriginal;
+
     }
 
     public void OnJumpReleased()
@@ -323,6 +337,9 @@ public class PlatformerPlayerController : MonoBehaviour
     
     public void OnSprintPressed()
     {
+        if (!GameManager.Instance.IsSubActive(SubscriptionID.sprint))
+            audioSrc.PlayOneShot(soundEffects.ErrorSound);
+
         isSprinting = true;
         WeWalkin();
     }
@@ -347,4 +364,6 @@ class CharacterSFX
     public AudioClip Jump;
     public AudioClip AirJump;
     public AudioClip Land;
+    public AudioClip ErrorSound;
+
 }

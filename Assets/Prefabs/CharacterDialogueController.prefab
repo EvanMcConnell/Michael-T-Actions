@@ -474,7 +474,7 @@ Canvas:
   m_GameObject: {fileID: 1533941081476822070}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -601,7 +601,7 @@ AudioSource:
   m_GameObject: {fileID: 1533941082206913996}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 967676592edaf0a4bbc63d1b595a3f83, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
