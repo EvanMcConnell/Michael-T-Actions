@@ -15,6 +15,9 @@ public class PlatfromerCameraController : MonoBehaviour
     [SerializeField] private float sensitivitY = 2f;
     [SerializeField] private float sensitivitX = 4f;
 
+    [SerializeField] private float zoomSensitivity = 0.01f;
+    private float zoomness = 0;
+
     [SerializeField] Transform FollowPos;
     
     private void Awake()
@@ -53,13 +56,19 @@ public class PlatfromerCameraController : MonoBehaviour
     //
     // }
     //
-    // public void HandleMouseScroll(InputAction.CallbackContext context)
-    // {
-    //     Vector2 inputMovement = context.ReadValue<Vector2>();
-    //     yScroll = inputMovement.y;
-    //     Debug.Log(yScroll);
-    //     KeyValuePair<String, KeyValuePair<int, bool>> x;
-    // }
+    
+    public void HandleMouseScroll(float input)
+    {
+        yScroll = Mathf.Sign(input);
+        Debug.Log(yScroll);
+        
+        zoomness = Mathf.Clamp(zoomness + zoomSensitivity * yScroll * Time.deltaTime, 0, 1);
+        
+        float y = Mathf.Lerp(4, 0, zoomness); 
+        float z = Mathf.Lerp(-12, 0, zoomness);
+        
+        GetComponentInChildren<Camera>().transform.localPosition = new Vector3(0, y, z);
+    }
 
     //TODO ZOOM
 }

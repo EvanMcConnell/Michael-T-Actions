@@ -17,9 +17,8 @@ public class PlatformerInputHandler : MonoBehaviour
 
     public void HandleMouseScroll(InputAction.CallbackContext context)
     {
-        Vector2 inputMovement = context.ReadValue<Vector2>();
-        //yScroll = inputMovement.y;
-        //Debug.Log(yScroll);
+        float input = context.ReadValue<float>();
+        PlatfromerCameraController.Instance.HandleMouseScroll(input);
     }
     
     /*
