@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,9 +12,10 @@ public class FirstPersonCameraController : MonoBehaviour
     private float _xRot, _yRot;
     [SerializeField] private float Sensitivity = 1;
     public bool isHuman = true;
+    private bool theEndIsNigh = false;
     public bool movementLocked = false;
     [SerializeField] private Transform cameraHome, computerScreenViewPoint;
-    [SerializeField] private GameObject ComputerScreen;
+    [SerializeField] private GameObject ComputerScreen, ComputerPrompt, DoorPrompt, EndingCutscene;
 
 
     private void Awake()
@@ -53,21 +55,14 @@ public class FirstPersonCameraController : MonoBehaviour
     {
         if (context.started)
         {
-            if (isHuman)
+            if (theEndIsNigh)
             {
-                StartCoroutine(moveToComputer());
+                EndingCutscene.SetActive(true);
+                return;
             }
-            else
-            {
-                float timeMoving = 0;
-                while (timeMoving < 2) 
-                {
-                    Mathf.Lerp(computerScreenViewPoint.position.x,cameraHome.position.x, timeMoving / 2); 
-                    timeMoving += Time.deltaTime;
-                }
-                GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Human");
-                isHuman = true;
-            }
+
+
+            StartCoroutine(moveToComputer());
         }
     }
 
@@ -149,5 +144,14 @@ public class FirstPersonCameraController : MonoBehaviour
         transform.position = cameraHome.position;
         transform.eulerAngles = cameraHome.eulerAngles;
         print($"done {cameraHome.position} {transform.position}");
+    }
+
+    public void WakeUp()
+    {
+        EndingCutscene.SetActive(true);
+        // StartCoroutine(returnToBody());
+        // theEndIsNigh = true;
+        // ComputerPrompt.SetActive(false);
+        // DoorPrompt.SetActive(true);
     }
 }

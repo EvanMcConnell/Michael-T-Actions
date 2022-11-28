@@ -242,6 +242,11 @@ public class GameManager : MonoBehaviour
         subscriptionClasses[ID].isActive = false;
         FindObjectOfType<PlayersCosmeticsController>().ActivateCosmetic(ID, false);
     }
+
+    public void KnockKnock()
+    {
+        
+    }
 }
 
 /// Classes

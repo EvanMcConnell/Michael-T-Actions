@@ -30,6 +30,15 @@ public class PlayerPurchaseController : MonoBehaviour
                 Cdata.SetDialogueDefault();
             }
 
+            if (other.transform.TryGetComponent(out KnockKnockArea interactArea))
+            {
+                PurchasePrompt.SetActive(true);
+                PurchasePrompt.GetComponent<TextMeshPro>().SetText("Press E to knock...");
+                inPurchaseArea = true;
+                purchaseAreaCollider = other;
+                return;
+            }
+
             //If Purchaseable
             if (other.transform.TryGetComponent(out PurchaseArea purchaseArea))
             {
