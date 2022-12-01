@@ -51,18 +51,18 @@ MonoBehaviour:
   - ID: 0
     isActive: 1
     isUnlocked: 0
-    duration: 120
-    timeLeft: 120
+    duration: 180
+    timeLeft: 180
   - ID: 1
     isActive: 1
     isUnlocked: 0
-    duration: 120
-    timeLeft: 120
+    duration: 180
+    timeLeft: 180
   - ID: 2
     isActive: 1
     isUnlocked: 0
-    duration: 120
-    timeLeft: 120
+    duration: 180
+    timeLeft: 180
   - ID: 3
     isActive: 0
     isUnlocked: 1

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c64cac1b4c5194b90da925f59f5ff9, type: 3}
   m_Name: Goku
   m_EditorClassIdentifier: 
-  Dialogue: Who are you
+  Dialogue: Wow son im so proud
   DialogueHappy: Tax avoidance is hip and fun Jack
-  DialogueSad: WHO ARE YOU
-  profileImage: {fileID: 21300000, guid: 840089c3736d1d24399efed5d476c4a5, type: 3}
+  DialogueSad: NEVER MIND YOU ARE POOR
+  profileImage: {fileID: -676572846, guid: 7c4402d2a8e44a847bca90a375b2abcb, type: 3}
   CharacterImage: {fileID: 21300000, guid: e13fe49a6720b4c4bbfe96296eeef59b, type: 3}
   audio: {fileID: 8300000, guid: 4368ee539a8be084bba06c380145255e, type: 3}
