@@ -335,9 +335,13 @@ public class PlatformerPlayerController : MonoBehaviour
     public void OnSprintPressed()
     {
         if (!GameManager.Instance.IsSubActive(SubscriptionID.sprint))
+        {
             audioSrc.PlayOneShot(soundEffects.ErrorSound);
-
-        isSprinting = true;
+        } 
+        else
+        {
+            isSprinting = true;
+        }
         WeWalkin();
     }
 

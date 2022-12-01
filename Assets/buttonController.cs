@@ -36,6 +36,7 @@ public class buttonController : MonoBehaviour
 
     internal void ButtonUp()
     {
+        StopAllCoroutines();
         StartCoroutine(TimerEvent());
     }
 
