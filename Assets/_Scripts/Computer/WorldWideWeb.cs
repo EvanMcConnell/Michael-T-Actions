@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 public class WorldWideWeb : MonoBehaviour
@@ -21,7 +22,7 @@ public class WorldWideWeb : MonoBehaviour
     private int bankPendingAmount;
     private float canhaPendingTimer;
     private int canhaPendingAmount;
-    [SerializeField] private GameObject canhaScreenPoorText;
+    [SerializeField] private GameObject canhaScreenPoorText, canhaBucksCutscene;
     
     GameManager gm => GameManager.Instance;
 
@@ -39,14 +40,14 @@ public class WorldWideWeb : MonoBehaviour
         
     }
 
-    public void GetLoan(int DebtIncurred) => StartCoroutine(BankReceiptBuffer());
+    public void GetLoan(int DebtIncurred) => StartCoroutine(BankReceiptBuffer(DebtIncurred));
 
-    IEnumerator BankReceiptBuffer()
+    IEnumerator BankReceiptBuffer(int DebtIncurred)
     {
-        bankPendingAmount += 100;
+        bankPendingAmount += DebtIncurred;
         bankPendingTimer += 0.35f;
         
-        Debt += 100;
+        Debt += DebtIncurred;
         debtText.text = "-" + Debt;
 
         yield return new WaitForSecondsRealtime(0.35f);
@@ -81,14 +82,14 @@ public class WorldWideWeb : MonoBehaviour
 
     IEnumerator CanhaBucksReceiptBuffer()
     {
-        canhaPendingAmount += 10;
+        canhaPendingAmount += 50;
         canhaPendingTimer += 0.35f;
         
         
-        GameManager.Instance.PurchaseWithCurrency(Currency.canhaBucks, -10, "Top Up");
+        GameManager.Instance.PurchaseWithCurrency(Currency.canhaBucks, -50, "Top Up");
         canhaBalanceText.text = gm.GetCurrency(Currency.canhaBucks).ToString();
          
-        canhaScreenBankBalanceText.text = (int.Parse(canhaScreenBankBalanceText.text)-100).ToString();
+        canhaScreenBankBalanceText.text = (int.Parse(canhaScreenBankBalanceText.text)-500).ToString();
         
         yield return new WaitForSecondsRealtime(0.35f);
         canhaPendingTimer -= 0.35f;
@@ -151,4 +152,6 @@ public class WorldWideWeb : MonoBehaviour
             activeWindow.MinimiseWindow();
         }
     }
+
+    public void StartCanhaBucksCutscene() => canhaBucksCutscene.GetComponent<PlayableDirector>().Play();
 }

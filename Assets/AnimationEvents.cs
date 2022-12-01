@@ -18,6 +18,7 @@ public class AnimationEvents : MonoBehaviour
     public void AnimEvent_GameLoadingDone() => WorldWideWeb.Instance.StartGame();
 
     public void AnimEvents_ToggleCursorOff() => CursorController.Instance.toggle(false);
+    public void AnimEvents_ToggleCursorOn() => CursorController.Instance.toggle(true);
 
     public void AnimEvent_ChangeInputMap(InputMaps map)
     {

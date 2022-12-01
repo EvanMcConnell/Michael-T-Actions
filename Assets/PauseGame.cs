@@ -8,6 +8,8 @@ public class PauseGame : MonoBehaviour
     {
         CanhaBucksInstaller.Instance.installCanha = true;
         WorldWideWeb.Instance.pauseGame();
+        WorldWideWeb.Instance.ExitButton();
+        WorldWideWeb.Instance.StartCanhaBucksCutscene();
     }
 
 }
