@@ -18,19 +18,22 @@ public class SubsriptionPurchase : MonoBehaviour
     }
     public void SubPurchase()
     {
-        GameManager.Instance.SubScribe(subscriptionID);
-    }
+        if (!GameManager.Instance.IsSubActive(subscriptionID))
+        {
+            GameManager.Instance.SubScribe(subscriptionID);
+        } else
+        {
+            PlatformerPlayerController.Instance.PlayErrorSound();
+        }
+    } 
 
     public void Unlock(SubscriptionID ID)
     {
-        Debug.Log("I ran");
         if (subscriptionID != ID)
             return;
 
-        Debug.Log("I ran further");
 
         lockObject.SetActive(false);
         GetComponent<BoxCollider>().enabled = true;
-
     }
 }

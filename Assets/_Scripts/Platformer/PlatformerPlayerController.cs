@@ -189,7 +189,7 @@ public class PlatformerPlayerController : MonoBehaviour
         transform.LookAt(transform.position + inputVector.normalized);
     }
 
-
+    
     /// <summary>
     /// To check if the player is on the ground
     /// + a poor implimentation of coyotetime
@@ -352,6 +352,11 @@ public class PlatformerPlayerController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(groundCheckPivot.position, groundColliderCheckSize);
+    }
+
+    public void PlayErrorSound()
+    {
+        audioSrc.PlayOneShot(soundEffects.ErrorSound);
     }
 }
 
