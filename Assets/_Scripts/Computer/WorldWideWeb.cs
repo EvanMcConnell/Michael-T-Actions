@@ -63,6 +63,8 @@ public class WorldWideWeb : MonoBehaviour
             bankPendingAmount = 0;
         }
     }
+    
+    
 
     public void BuyCanhaBucks()
     {
@@ -135,5 +137,18 @@ public class WorldWideWeb : MonoBehaviour
         pauseGameOverlay.SetActive(true);
         CursorController.Instance.toggle(true);
         GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Computer");
+    }
+
+    public void ExitButton()
+    {
+        ComputerWindow activeWindow = GetComponentInChildren<ComputerWindow>();
+
+        print("poggers");
+        
+        if (activeWindow)
+        {
+            print("clicky");
+            activeWindow.MinimiseWindow();
+        }
     }
 }

@@ -80,17 +80,18 @@ public class PlatformerPlayerController : MonoBehaviour
 
     private void Update()
     {
-        if ((xAxis != 0 || yAxis != 0) && isGrounded)
+        if ((xAxis != 0 || yAxis != 0) && isGrounded && isSprinting)
         {
             print("dusty");
-            walkingEffect.Play();
+            walkingEffect.gameObject.SetActive(true);
         }
         else
         {
-            walkingEffect.Stop();
+            if(walkingEffect.gameObject.activeInHierarchy && isGrounded) landingEffect.Play();   
+            walkingEffect.gameObject.SetActive(false);
         }
         
-        print($"{walkingEffect.isEmitting} {walkingEffect.isPlaying}");
+        //print($"{walkingEffect.isEmitting} {walkingEffect.isPlaying}");
     }
 
     void FixedUpdate()
