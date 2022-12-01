@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,8 @@ public class buttonController : MonoBehaviour
     [SerializeField] int timerSeconds = 5;
     AudioSource AudioSourceButton;
 
+    [SerializeField] private Boolean timerSound = true;
+
     private void Start()
     {
         AudioSourceButton = GetComponent<AudioSource>();
@@ -21,8 +24,11 @@ public class buttonController : MonoBehaviour
 
     internal void ButtonDown()
     {
-        if (!AudioSourceButton.isPlaying)
+        if (!AudioSourceButton.isPlaying && timerSound)
+        {
+            AudioSourceButton.pitch = 1f;
             AudioSourceButton.Play();
+        }
 
         animator.Play("ButtonDown");
         ButtonDownEvent.Invoke();
@@ -35,7 +41,13 @@ public class buttonController : MonoBehaviour
 
     IEnumerator TimerEvent()
     {
-        yield return new WaitForSeconds(timerSeconds);
+        yield return new WaitForSeconds(timerSeconds/2f);
+        AudioSourceButton.pitch = 1.25f;
+        yield return new WaitForSeconds(timerSeconds/4f);
+        AudioSourceButton.pitch = 1.5f;
+        yield return new WaitForSeconds(timerSeconds/8f);
+        AudioSourceButton.pitch = 2f;
+        yield return new WaitForSeconds(timerSeconds/8f);
         animator.Play("ButtonUp");
         AudioSourceButton.Stop();
         ButtonResetEvent.Invoke();

@@ -44,7 +44,7 @@ public class PlatfromerCameraController : MonoBehaviour
 
     public void addRoationInput(float x, float y)
     {
-        xRot += y * Time.deltaTime * sensitivitY;
+        xRot += -y * Time.deltaTime * sensitivitY;
         yRot += x * Time.deltaTime * sensitivitX;
     }
 
