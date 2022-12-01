@@ -186,6 +186,7 @@ public class GameManager : MonoBehaviour
 
     public void SubScribe(SubscriptionID ID)
     {
+
         // is unlocked 
         StartCoroutine(SubscribeCor(ID));
         ///REEE

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c64cac1b4c5194b90da925f59f5ff9, type: 3}
   m_Name: INtro
   m_EditorClassIdentifier: 
-  Dialogue: Welcome, Welcome to City 17
-  DialogueHappy: 
-  DialogueSad: 
+  Dialogue: Hot Tip, Scorll to zoom
+  DialogueHappy: AAAAAAAAARHG
+  DialogueSad: So poor AND a loser
   profileImage: {fileID: 21300000, guid: e0dd350de103cd74da4841691e581f42, type: 3}
   CharacterImage: {fileID: 21300000, guid: e0dd350de103cd74da4841691e581f42, type: 3}
   audio: {fileID: 8300000, guid: 2bf53a314665fad40b980d974712c288, type: 3}

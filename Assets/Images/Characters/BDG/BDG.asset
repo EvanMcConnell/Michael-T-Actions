@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BDG
   m_EditorClassIdentifier: 
   Dialogue: BUY MY BED
-  DialogueHappy: THANK YOU FOR REMOVING MY BED
+  DialogueHappy: THANK YOU FOR PURCHASING  MY BED
   DialogueSad: POOR, YOU ARE POOR
   profileImage: {fileID: 21300000, guid: 5665883cd8fdfab45b41d5be7ae49213, type: 3}
   CharacterImage: {fileID: 21300000, guid: 1d8033e5ab74b8a4f81ed21d4b5ccce5, type: 3}

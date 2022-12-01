@@ -26,7 +26,7 @@ public class PurchaseArea : MonoBehaviour
 
             if (TryGetComponent(out AudioSource purchaseAudio))
             {
-                purchaseAudio.pitch = 1f;
+                //purchaseAudio.pitch = 1f;
 
                 purchaseAudio.PlayOneShot(purchaseSound);
             }
@@ -42,8 +42,7 @@ public class PurchaseArea : MonoBehaviour
 
             if (TryGetComponent(out AudioSource purchaseAudio))
             {
-                purchaseAudio.pitch = .5f;
-                purchaseAudio.PlayOneShot(purchaseSound);
+                PlatformerPlayerController.Instance.PlayErrorSound();
             }
 
             return false;
