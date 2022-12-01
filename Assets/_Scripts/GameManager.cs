@@ -186,9 +186,16 @@ public class GameManager : MonoBehaviour
 
     public void SubScribe(SubscriptionID ID)
     {
-
         // is unlocked 
-        StartCoroutine(SubscribeCor(ID));
+
+        if (IsSubActive(ID))
+        {
+            subscriptionClasses[ID].timeLeft = subscriptionClasses[ID].duration;
+        } else
+        {
+            StartCoroutine(SubscribeCor(ID));
+        }
+
         ///REEE
         ///
         FindObjectOfType<PlayersCosmeticsController>().ActivateCosmetic(ID);

@@ -297,13 +297,15 @@ public class PlatformerPlayerController : MonoBehaviour
         else if (!DidAirJump)
         {
             audioSrc.PlayOneShot(soundEffects.AirJump);
-            landingEffect.Play();
             isAirJump = true;
             DidAirJump = true;
 
             if (!GameManager.Instance.IsSubActive(SubscriptionID.doubleJump))
             {
                 audioSrc.PlayOneShot(soundEffects.ErrorSound);
+            }else
+            {
+                landingEffect.Play();
             }
         }
     }

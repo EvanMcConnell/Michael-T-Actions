@@ -18,13 +18,10 @@ public class SubsriptionPurchase : MonoBehaviour
     }
     public void SubPurchase()
     {
-        if (!GameManager.Instance.IsSubActive(subscriptionID))
-        {
-            GameManager.Instance.SubScribe(subscriptionID);
-        } else
-        {
-            PlatformerPlayerController.Instance.PlayErrorSound();
-        }
+         
+        GameManager.Instance.SubScribe(subscriptionID);
+        PlatformerPlayerController.Instance.PlayErrorSound();
+      
     } 
 
     public void Unlock(SubscriptionID ID)
