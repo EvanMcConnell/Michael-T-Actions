@@ -15,7 +15,7 @@ public class WorldWideWeb : MonoBehaviour
     private int Debt = 0;
 
     [SerializeField] private TMPro.TextMeshProUGUI debtText, bankBalanceText, canhaBalanceText, canhaScreenBankBalanceText;
-    [SerializeField] private GameObject pauseGameOverlay;
+    [SerializeField] private GameObject pauseGameOverlay, gameView;
 
     private float bankPendingTimer;
     private int bankPendingAmount;
@@ -113,6 +113,7 @@ public class WorldWideWeb : MonoBehaviour
         pauseGameOverlay.SetActive(false);
         CursorController.Instance.toggle(false);
         GameManager.Instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
+        gameView.SetActive(true);
 
         try
         {
