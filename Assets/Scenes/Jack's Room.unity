@@ -13564,6 +13564,10 @@ PrefabInstance:
       propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1189972841, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+    - target: {fileID: 1420178569, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1111389070114561418, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -13772,6 +13776,54 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394556, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394556, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394556, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394556, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 30.000275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394556, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 8.8155365
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394557, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394557, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394557, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1189972838}
+    - target: {fileID: 7043186124756394557, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394557, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394557, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WorldWideWeb, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043186124756394557, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+      propertyPath: OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7043186125251145009, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
       propertyPath: booper
       value: 
@@ -13830,6 +13882,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 422811799, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
   m_PrefabInstance: {fileID: 1189972835}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1189972838 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 491629612, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
+  m_PrefabInstance: {fileID: 1189972835}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098488765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e53d4f5c10db7479249c68c6b1d7cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1197076311 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6680282402543649864, guid: 9000ae8abf22942488f6b701a89f726d, type: 3}
